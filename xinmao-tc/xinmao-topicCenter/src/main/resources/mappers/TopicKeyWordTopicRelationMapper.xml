@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xinmao.tc.topicCenter.mapper.TopicKeyWordTopicRelationMapper">
+  <resultMap id="BaseResultMap" type="com.xinmao.tc.topicCenter.domain.TopicKeyWordTopicRelation">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="keyWordId" jdbcType="BIGINT" property="keyWordId" />
+    <result column="topicId" jdbcType="BIGINT" property="topicId" />
+    <result column="is_enable" jdbcType="TINYINT" property="isEnable" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, keyWordId, topicId, is_enable, is_delete, create_time, update_time
+  </sql>
+  
+    <select id="selectTopicIdList" parameterType="com.xinmao.tc.topicCenter.domain.TopicKeyWordTopicRelation" resultType="java.lang.Long">
+    select
+    topicId
+    from topic_key_word_topic_relation
+    where is_delete = 0
+    <if test="searchIdList != null">
+        and keyWordId IN
+       <foreach collection="searchIdList" index="index" item="item"  open="(" separator="," close=")">
+        #{item}
+       </foreach>
+    </if>
+  </select>
+  
+  <select id="selectKeyWordIdListByTopicId" parameterType="java.lang.Long" resultType="java.lang.Long">
+    select
+    keyWordId
+    from topic_key_word_topic_relation
+    where is_delete=0
+    and topicId = #{topicId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectTopicIdListByKeyWordId" parameterType="java.lang.Long" resultType="java.lang.Long">
+    select
+    topicId 
+    from topic_key_word_topic_relation
+    where is_delete=0
+    and keyWordId = #{keyWordId,jdbcType=BIGINT}
+  </select>
+
+
+  <insert id="insertMess" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.tc.topicCenter.domain.TopicKeyWordTopicRelation">
+    insert into topic_key_word_topic_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="keyWordId != null">
+        keyWordId,
+      </if>
+      <if test="topicId != null">
+        topicId,
+      </if>
+      <if test="isEnable != null">
+        is_enable,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="keyWordId != null">
+        #{keyWordId,jdbcType=BIGINT},
+      </if>
+      <if test="topicId != null">
+        #{topicId,jdbcType=BIGINT},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  <update id="batchDeleteMess" parameterType="com.xinmao.tc.topicCenter.domain.TopicKeyWordTopicRelation" >
+    update topic_key_word_topic_relation
+    <set >
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+       where 
+        is_delete = 0 
+        and topicId = #{topicId,jdbcType=BIGINT}
+        and keyWordId in
+        <foreach item="item" index="index" collection="searchIdList"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+  </update>
+  <!-- 
+  <update id="updateByExampleSelective" parameterType="map">
+    update topic_key_word_topic_relation
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.keywordid != null">
+        keyWordId = #{record.keywordid,jdbcType=BIGINT},
+      </if>
+      <if test="record.topicid != null">
+        topicId = #{record.topicid,jdbcType=BIGINT},
+      </if>
+      <if test="record.isEnable != null">
+        is_enable = #{record.isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  -->
+</mapper>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinmao.sc.testCenter.mapper.TestScaleQualitativeMapper" >
+
+  <resultMap id="BaseResultMap" type="com.xinmao.sc.testCenter.domain.TestScaleQualitativeMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="relateTestScaleId" property="relateTestScaleId" jdbcType="INTEGER" />
+    <result column="qualitativeImage" property="qualitativeImage" jdbcType="VARCHAR" /> 
+    <result column="briefIntroduction" property="briefIntroduction" jdbcType="VARCHAR" />
+    <result column="concept" property="concept" jdbcType="VARCHAR" />
+    <result column="advantage" property="advantage" jdbcType="VARCHAR" />
+    <result column="inferiority" property="inferiority" jdbcType="VARCHAR" />
+    <result column="proposal" property="proposal" jdbcType="VARCHAR" />
+    <result column="qualitativeType" property="qualitativeType" jdbcType="INTEGER" />
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,name,relateTestScaleId,qualitativeImage,briefIntroduction,concept,advantage,inferiority,proposal,qualitativeType,is_enable,is_delete,create_time,update_time
+  </sql>
+
+
+  <select id="getMessageByTestScaleId" resultMap="BaseResultMap" parameterType="com.xinmao.sc.testCenter.domain.TestScaleQualitativeMessage" >
+    select 
+          id,name,qualitativeType
+    from testscalequalitative 
+    <where>
+        is_delete = 0
+      <if test="relateTestScaleId != null">
+        and relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+          <include refid="Base_Column_List"/>
+    from testscalequalitative 
+    <where>
+        is_delete = 0
+      <if test="relateTestScaleId != null">
+        and relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER}
+      </if>
+      <if test="searchIdList != null">
+	    and id in
+        <foreach item="item" index="index" collection="searchIdList"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+      </if>
+    </where>
+    order by update_time desc
+  </select>
+  
+  <select id="selectAllId" resultType="int">
+    select 
+          id
+    from testscalequalitative 
+    <where>
+        is_delete = 0
+      <if test="relateTestScaleId != null">
+        and relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+  
+  
+  
+  <select id="getMessById" resultMap="BaseResultMap" parameterType="int">
+   select 
+          <include refid="Base_Column_List"/>
+   from 
+        testscalequalitative  
+   where  is_delete = 0 and 
+          id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertMess" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.sc.testCenter.domain.TestScaleQualitativeMessage" >
+    insert into testscalequalitative
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="relateTestScaleId != null" >
+        relateTestScaleId,
+      </if>
+      <if test="qualitativeImage != null" >
+        qualitativeImage,
+      </if>
+      <if test="briefIntroduction != null" >
+        briefIntroduction,
+      </if>
+      <if test="concept != null" >
+        concept,
+      </if>
+      <if test="advantage != null" >
+        advantage,
+      </if>
+      <if test="inferiority != null" >
+        inferiority,
+      </if>
+      <if test="proposal != null" >
+        proposal,
+      </if>
+         <if test="qualitativeType != null" >
+        qualitativeType,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="relateTestScaleId != null" >
+        #{relateTestScaleId,jdbcType=INTEGER},
+      </if>  
+      <if test="qualitativeImage != null" >
+        #{qualitativeImage,jdbcType=VARCHAR},
+      </if>
+      <if test="briefIntroduction != null" >
+        #{briefIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="concept != null" >
+        #{concept,jdbcType=VARCHAR},
+      </if>
+      <if test="advantage != null" >
+        #{advantage,jdbcType=VARCHAR},
+      </if>
+      <if test="inferiority != null" >
+        #{inferiority,jdbcType=VARCHAR},
+      </if>
+      <if test="proposal != null" >
+        #{proposal,jdbcType=VARCHAR},
+      </if>
+      <if test="qualitativeType != null" >
+        #{qualitativeType,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateMess" parameterType="com.xinmao.sc.testCenter.domain.TestScaleQualitativeMessage" >
+    update testscalequalitative
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="relateTestScaleId != null" >
+        relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER},
+      </if>  
+      <if test="qualitativeImage != null" >
+        qualitativeImage = #{qualitativeImage,jdbcType=VARCHAR},
+      </if>
+      <if test="briefIntroduction != null" >
+        briefIntroduction = #{briefIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="concept != null" >
+        concept = #{concept,jdbcType=VARCHAR},
+      </if>
+      <if test="advantage != null" >
+        advantage = #{advantage,jdbcType=VARCHAR},
+      </if>
+      <if test="inferiority != null" >
+        inferiority = #{inferiority,jdbcType=VARCHAR},
+      </if>
+      <if test="proposal != null" >
+        proposal = #{proposal,jdbcType=VARCHAR},
+      </if>
+      <if test="qualitativeType != null" >
+        qualitativeType = #{qualitativeType,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+  
+  <update id="batchDeleteMessByTestScaleId" parameterType="com.xinmao.sc.testCenter.domain.TestScaleQualitativeMessage" >
+    update testscalequalitative
+    <set >
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+       where relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+</mapper>

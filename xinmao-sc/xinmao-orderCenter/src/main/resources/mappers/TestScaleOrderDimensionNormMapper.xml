@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinmao.sc.orderCenter.mapper.TestScaleOrderDimensionNormMapper" >
+
+  <resultMap id="BaseResultMap" type="com.xinmao.sc.orderCenter.domain.TestScaleOrderDimensionNormMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="testScaleOrderId" property="testScaleOrderId" jdbcType="INTEGER" />
+    <result column="dimensionId" property="dimensionId" jdbcType="INTEGER" />
+    <result column="dimensionName" property="dimensionName" jdbcType="VARCHAR" />
+    <result column="dimensionDescription" property="dimensionDescription" jdbcType="VARCHAR" />
+    <result column="dimensionScore" property="dimensionScore" jdbcType="FLOAT" />
+    <result column="normId" property="normId" jdbcType="INTEGER" />
+    <result column="normLowScore" property="normLowScore" jdbcType="FLOAT" />
+    <result column="normHighScore" property="normHighScore" jdbcType="FLOAT" />
+    <result column="isNormal" property="isNormal" jdbcType="INTEGER" />
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,testScaleOrderId,dimensionId,dimensionName,dimensionDescription,dimensionScore,normId,normLowScore,normHighScore,isNormal,is_enable,is_delete,create_time,update_time
+  </sql>
+
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderDimensionNormMessage">
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaleorderdimensionnorm 
+    <where>
+        is_delete = 0
+      <if test="testScaleOrderId != null">
+        and testScaleOrderId = #{testScaleOrderId,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by id asc
+  </select>
+  
+  <select id="getMessById" resultMap="BaseResultMap" parameterType="int">
+   select 
+          <include refid="Base_Column_List"/>
+   from 
+        testscaleorderdimensionnorm  
+   where  is_delete = 0 and 
+          id = #{id,jdbcType=INTEGER}
+   order by update_time desc  
+  </select>
+  
+  <insert id="insertMess" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderDimensionNormMessage" >
+    insert into testscaleorderdimensionnorm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="testScaleOrderId != null" >
+        testScaleOrderId,
+      </if>
+      <if test="dimensionId != null" >
+        dimensionId,
+      </if>
+      <if test="dimensionName != null" >
+        dimensionName,
+      </if>
+      <if test="dimensionDescription != null" >
+        dimensionDescription,
+      </if>
+      <if test="dimensionScore != null" >
+        dimensionScore,
+      </if>
+      <if test="normId != null" >
+        normId,
+      </if>
+      <if test="normLowScore != null" >
+        normLowScore,
+      </if>
+      <if test="normHighScore != null" >
+        normHighScore,
+      </if>
+      <if test="isNormal != null" >
+        isNormal,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="testScaleOrderId != null" >
+        #{testScaleOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="dimensionId != null" >
+        #{dimensionId,jdbcType=INTEGER},
+      </if>
+      <if test="dimensionName != null" >
+        #{dimensionName,jdbcType=VARCHAR},
+      </if>
+      <if test="dimensionDescription != null" >
+        #{dimensionDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="dimensionScore != null" >
+        #{dimensionScore,jdbcType=FLOAT},
+      </if>
+      <if test="normId != null" >
+        #{normId,jdbcType=INTEGER},
+      </if>
+      <if test="normLowScore != null" >
+        #{normLowScore,jdbcType=FLOAT},
+      </if>
+      <if test="normHighScore != null" >
+        #{normHighScore,jdbcType=FLOAT},
+      </if>
+      <if test="isNormal != null" >
+        #{isNormal,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateMess" parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderDimensionNormMessage" >
+    update testscaleorderdimensionnorm
+    <set >
+      <if test="testScaleOrderId != null" >
+        testScaleOrderId = #{testScaleOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="dimensionId != null" >
+        dimensionId = #{dimensionId,jdbcType=INTEGER},
+      </if>
+      <if test="dimensionName != null" >
+        dimensionName = #{dimensionName,jdbcType=VARCHAR},
+      </if>
+      <if test="dimensionDescription != null" >
+        dimensionDescription = #{dimensionDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="dimensionScore != null" >
+        dimensionScore = #{dimensionScore,jdbcType=FLOAT},
+      </if>
+      <if test="normId != null" >
+        normId = #{normId,jdbcType=INTEGER},
+      </if>
+      <if test="normLowScore != null" >
+        normLowScore = #{normLowScore,jdbcType=FLOAT},
+      </if>
+      <if test="normHighScore != null" >
+        normHighScore = #{normHighScore,jdbcType=FLOAT},
+      </if>
+      <if test="isNormal != null" >
+        isNormal = #{isNormal,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+</mapper>

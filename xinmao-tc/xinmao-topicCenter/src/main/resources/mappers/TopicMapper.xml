@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xinmao.tc.topicCenter.mapper.TopicMapper">
+  <resultMap id="BaseResultMap" type="com.xinmao.tc.topicCenter.domain.Topic">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="pictureUrl" jdbcType="VARCHAR" property="pictureUrl" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="readingVolume" jdbcType="INTEGER" property="readingVolume" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="isTop" jdbcType="TINYINT" property="isTop" />
+    <result column="setTopTime" jdbcType="TIMESTAMP" property="setTopTime" />
+    <result column="is_enable" jdbcType="TINYINT" property="isEnable" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List">
+    id, title, pictureUrl, content, readingVolume, status, isTop, setTopTime, is_enable, 
+    is_delete, create_time, update_time
+  </sql>
+  
+  <select id="selectList" parameterType="com.xinmao.tc.topicCenter.domain.Topic" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from topic
+    where is_delete = 0 
+    <if test="searchIdList != null">
+        and id IN
+       <foreach collection="searchIdList" index="index" item="item"  open="(" separator="," close=")">
+        #{item}
+       </foreach>
+    </if>
+    <if test="status != null">
+        and status = #{status,jdbcType=TINYINT}
+    </if>
+  </select>
+  
+  
+  <select id="getAllCount" parameterType="com.xinmao.tc.topicCenter.domain.Topic" resultType="java.lang.Integer">
+    select
+    count(*)
+    from topic
+    where is_delete = 0 
+    <if test="searchIdList != null">
+        and id IN
+       <foreach collection="searchIdList" index="index" item="item"  open="(" separator="," close=")">
+        #{item}
+       </foreach>
+    </if>
+    <if test="status != null">
+        and status = #{status,jdbcType=TINYINT}
+    </if>
+  </select>
+  
+  <select id="getSingleMessage" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from topic
+    where is_delete = 0 
+    and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  
+
+  <insert id="addMessage" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.tc.topicCenter.domain.Topic">
+    insert into topic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="pictureUrl != null">
+        pictureUrl,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="readingVolume != null">
+        readingVolume,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="isTop != null">
+        isTop,
+      </if>
+      <if test="setTopTime != null">
+        setTopTime,
+      </if>
+      <if test="isEnable != null">
+        is_enable,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null">
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="readingVolume != null">
+        #{readingVolume,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isTop != null">
+        #{isTop,jdbcType=TINYINT},
+      </if>
+      <if test="setTopTime != null">
+        #{setTopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+ 
+ 
+  <update id="updateMessage" parameterType="com.xinmao.tc.topicCenter.domain.Topic">
+    update topic
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null">
+        pictureUrl = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="readingVolume != null">
+        readingVolume = #{readingVolume,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isTop != null">
+        isTop = #{isTop,jdbcType=TINYINT},
+      </if>
+      <if test="setTopTime != null">
+        setTopTime = #{setTopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null">
+        is_enable = #{isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where is_delete = 0 
+    and id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <update id="setTop" parameterType="com.xinmao.tc.topicCenter.domain.Topic">
+    update topic
+     set
+        isTop = #{isTop,jdbcType=TINYINT},
+        setTopTime = #{setTopTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where is_delete = 0 
+    and id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  <update id="addReadingVolume" parameterType="com.xinmao.tc.topicCenter.domain.Topic">
+    update topic
+    set
+        readingVolume = readingVolume+#{readingVolume,jdbcType=TINYINT},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where is_delete = 0 
+    and id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+
+</mapper>

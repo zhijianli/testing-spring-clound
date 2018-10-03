@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinmao.sc.orderCenter.mapper.TestScaleOrderTitleMapper" >
+
+  <resultMap id="BaseResultMap" type="com.xinmao.sc.orderCenter.domain.TestScaleOrderTitleMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="testScaleOrderId" property="testScaleOrderId" jdbcType="INTEGER" />
+    <result column="testScaleTitleId" property="testScaleTitleId" jdbcType="INTEGER" />
+    <result column="problemWord" property="problemWord" jdbcType="VARCHAR" />
+    <result column="problemPicSrc" property="problemPicSrc" jdbcType="VARCHAR" />
+    <result column="optionId" property="optionId" jdbcType="INTEGER" />
+    <result column="optionWord" property="optionWord" jdbcType="VARCHAR" />
+    <result column="optionPicSrc" property="optionPicSrc" jdbcType="VARCHAR" />
+    <result column="optionScore" property="optionScore" jdbcType="FLOAT" />
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,testScaleOrderId,testScaleTitleId,problemWord,problemPicSrc,optionId,optionWord,optionPicSrc,optionScore,is_enable,is_delete,create_time,update_time
+  </sql>
+  
+  <select id="selectCount" resultType="Integer"  parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderTitleMessage">
+    select count(*)
+    from testscaleordertitle 
+    <where>
+        is_delete = 0
+      <if test="testScaleOrderId != null">
+        and testScaleOrderId = #{testScaleOrderId,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap"  parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderTitleMessage">
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaleordertitle 
+    <where>
+        is_delete = 0
+      <if test="testScaleOrderId != null">
+        and testScaleOrderId = #{testScaleOrderId,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by update_time desc
+  </select>
+  
+  <select id="getMessById" resultMap="BaseResultMap" parameterType="int">
+   select 
+          <include refid="Base_Column_List"/>
+   from 
+        testscaleordertitle  
+   where  is_delete = 0 and 
+          id = #{id,jdbcType=INTEGER}
+   order by update_time desc  
+  </select>
+  
+  <insert id="insertMess" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderTitleMessage" >
+    insert into testscaleordertitle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="testScaleOrderId != null" >
+        testScaleOrderId,
+      </if>
+      <if test="testScaleTitleId != null" >
+        testScaleTitleId,
+      </if>
+      <if test="problemWord != null" >
+        problemWord,
+      </if>
+      <if test="problemPicSrc != null" >
+        problemPicSrc,
+      </if> 
+      <if test="optionId != null" >
+        optionId,
+      </if>
+      <if test="optionWord != null" >
+        optionWord,
+      </if>
+      <if test="optionPicSrc != null" >
+        optionPicSrc,
+      </if>
+      <if test="optionScore != null" >
+        optionScore,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="testScaleOrderId != null" >
+        #{testScaleOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="testScaleTitleId != null" >
+        #{testScaleTitleId,jdbcType=INTEGER},
+      </if>
+      <if test="problemWord != null" >
+        #{problemWord,jdbcType=VARCHAR},
+      </if>
+      <if test="problemPicSrc != null" >
+        #{problemPicSrc,jdbcType=VARCHAR},
+      </if>  
+      <if test="optionId != null" >
+        #{optionId,jdbcType=INTEGER},
+      </if>
+      <if test="optionWord != null" >
+        #{optionWord,jdbcType=VARCHAR},
+      </if>
+      <if test="optionPicSrc != null" >
+        #{optionPicSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="optionScore != null" >
+        #{optionScore,jdbcType=FLOAT},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateMess" parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderTitleMessage" >
+    update testscaleordertitle
+    <set >
+      <if test="testScaleOrderId != null" >
+        testScaleOrderId = #{testScaleOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="testScaleTitleId != null" >
+        testScaleTitleId = #{testScaleTitleId,jdbcType=INTEGER},
+      </if>
+      <if test="problemWord != null" >
+        problemWord = #{problemWord,jdbcType=VARCHAR},
+      </if>
+      <if test="problemPicSrc != null" >
+        problemPicSrc = #{problemPicSrc,jdbcType=VARCHAR},
+      </if>  
+      <if test="optionId != null" >
+        optionId = #{optionId,jdbcType=INTEGER},
+      </if>
+      <if test="optionWord != null" >
+        optionWord = #{optionWord,jdbcType=VARCHAR},
+      </if>
+      <if test="optionPicSrc != null" >
+        optionPicSrc = #{optionPicSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="optionScore != null" >
+        optionScore = #{optionScore,jdbcType=FLOAT},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+</mapper>

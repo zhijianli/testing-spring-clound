@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinmao.sc.testCenter.mapper.TestScalePopulationRangeMapper" >
+
+  <resultMap id="BaseResultMap" type="com.xinmao.sc.testCenter.domain.TestScalePopulationRangeMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="relateTestScaleId" property="relateTestScaleId" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="lowerAgeLimit" property="lowerAgeLimit" jdbcType="INTEGER" />
+    <result column="upperAgeLimit" property="upperAgeLimit" jdbcType="INTEGER" />
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,relateTestScaleId,sex,lowerAgeLimit,upperAgeLimit,is_enable,is_delete,create_time,update_time
+  </sql>
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.xinmao.sc.testCenter.domain.TestScalePopulationRangeMessage">
+    select 
+          <include refid="Base_Column_List"/>
+    from testscalepopulationrange 
+    <where>
+        is_delete = 0
+      <if test="relateTestScaleId != null">
+        and relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by id asc
+  </select>
+  
+  <select id="getMessById" resultMap="BaseResultMap" parameterType="int">
+   select 
+          <include refid="Base_Column_List"/>
+   from 
+        testscalepopulationrange  
+   where  is_delete = 0 and 
+          id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertMess" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.sc.testCenter.domain.TestScalePopulationRangeMessage" >
+    insert into testscalepopulationrange
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="relateTestScaleId != null" >
+        relateTestScaleId,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="lowerAgeLimit != null" >
+        lowerAgeLimit,
+      </if>
+      <if test="upperAgeLimit != null" >
+        upperAgeLimit,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="relateTestScaleId != null" >
+        #{relateTestScaleId,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="lowerAgeLimit != null" >
+        #{lowerAgeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="upperAgeLimit != null" >
+        #{upperAgeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateMess" parameterType="com.xinmao.sc.testCenter.domain.TestScalePopulationRangeMessage" >
+    update testscalepopulationrange
+    <set >
+      <if test="relateTestScaleId != null" >
+        relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="lowerAgeLimit != null" >
+        lowerAgeLimit = #{lowerAgeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="upperAgeLimit != null" >
+        upperAgeLimit = #{upperAgeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+  
+  
+  <update id="batchDeleteMess" parameterType="com.xinmao.sc.testCenter.domain.TestScalePopulationRangeMessage" >
+    update testscalepopulationrange
+    <set >
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+       where 
+        is_delete = 0 and
+        id in
+        <foreach item="item" index="index" collection="searchList"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+  </update>
+  
+  
+  <update id="batchDeleteMessByTestScaleId" parameterType="com.xinmao.sc.testCenter.domain.TestScalePopulationRangeMessage" >
+    update testscalepopulationrange
+    <set >
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+       where relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+</mapper>

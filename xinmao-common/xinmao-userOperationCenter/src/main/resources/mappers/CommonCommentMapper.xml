@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xinmao.common.userOperationCenter.mapper.CommonCommentMapper">
+  <resultMap id="BaseResultMap" type="com.xinmao.common.userOperationCenter.domain.CommonComment">
+    <id column="comment_id" jdbcType="BIGINT" property="commentId" />
+    <result column="article_id" jdbcType="BIGINT" property="articleId" />
+    <result column="mid" jdbcType="BIGINT" property="mid" />
+    <result column="mName" jdbcType="VARCHAR" property="mName" />
+    <result column="mHeadPortrait" jdbcType="VARCHAR" property="mHeadPortrait" />
+    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+    <result column="draft" jdbcType="VARCHAR" property="draft" />
+    <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="optimizedPraiseNum" jdbcType="INTEGER" property="optimizedPraiseNum" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    comment_id, article_id, mid,mName,mHeadPortrait,comment_content,draft, parent_comment_id, source, optimizedPraiseNum, status, comment_time, update_time, is_delete
+  </sql>
+ 
+  <insert id="insert" useGeneratedKeys="true" keyProperty="commentId"  parameterType="com.xinmao.common.userOperationCenter.domain.CommonComment">
+    insert into common_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        comment_id,
+      </if>
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="mid != null">
+        mid,
+      </if>
+      <if test="mName != null">
+        mName,
+      </if>
+      <if test="mHeadPortrait != null">
+        mHeadPortrait,
+      </if>
+      <if test="commentContent != null">
+        comment_content,
+      </if>
+      <if test="draft != null">
+        draft,
+      </if>
+      <if test="parentCommentId != null">
+        parent_comment_id,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="commentTime != null">
+        comment_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        #{commentId,jdbcType=BIGINT},
+      </if>
+      <if test="articleId != null">
+        #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=BIGINT},
+      </if>
+      <if test="mName != null">
+        #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mHeadPortrait != null">
+        #{mHeadPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="draft != null">
+        #{draft,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCommentId != null">
+        #{parentCommentId,jdbcType=BIGINT},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="commentTime != null">
+        #{commentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="updateMessage" parameterType="com.xinmao.common.userOperationCenter.domain.CommonComment">
+    update common_comment
+    <set>
+      <if test="mid != null">
+        mid = #{mid,jdbcType=BIGINT},
+      </if>
+      <if test="mName != null">
+        mName = #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mHeadPortrait != null">
+        mHeadPortrait = #{mHeadPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="draft != null">
+        draft = #{draft,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCommentId != null">
+        parent_comment_id = #{parentCommentId,jdbcType=BIGINT},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="optimizedPraiseNum != null">
+        optimizedPraiseNum = #{optimizedPraiseNum,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=BIGINT}
+  </update>
+  
+ <select id="getAllMessage" resultMap="BaseResultMap"  parameterType="com.xinmao.common.userOperationCenter.domain.CommonComment">
+    select 
+    <include refid="Base_Column_List" />
+    from common_comment
+      <where>
+        is_delete = 0
+      <if test="articleId != null">
+        and article_id =  #{articleId,jdbcType=BIGINT}
+      </if>
+      <if test="parentCommentId != null">
+        and parent_comment_id =  #{parentCommentId,jdbcType=BIGINT}
+      </if>
+      <if test="source != null">
+        and source =  #{source,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+        and status =  #{status,jdbcType=TINYINT}
+      </if>
+    </where>
+    order by comment_time desc
+ </select>
+ 
+ <select id="getSingleMessage" resultMap="BaseResultMap" parameterType="com.xinmao.common.userOperationCenter.domain.CommonComment">
+    select 
+    <include refid="Base_Column_List" />
+    from common_comment
+    where 
+      is_delete = 0
+      and comment_id = #{commentId,jdbcType=BIGINT}
+ </select>
+  
+  <select id="getMessageBySearchList" resultMap="BaseResultMap"  parameterType="com.xinmao.common.userOperationCenter.domain.CommonComment">
+    select 
+    <include refid="Base_Column_List" />
+    from common_comment
+      <where>
+        is_delete = 0
+        <if test="searchList != null">
+            and comment_id in
+           <foreach item="item" index="index" collection="searchList"  
+                 open="(" separator="," close=")">  
+                 #{item}  
+           </foreach>  
+        </if>
+    </where>
+    order by comment_time desc
+ </select>
+  
+  
+ <select id="getCommentNum" resultType="INTEGER"  parameterType="com.xinmao.common.userOperationCenter.domain.CommonComment">
+    select 
+      count(*)
+    from common_comment
+      <where>
+        is_delete = 0
+      <if test="articleId != null">
+        and article_id =  #{articleId,jdbcType=BIGINT}
+      </if>
+      <if test="source != null">
+        and source =  #{source,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+        and status =  #{status,jdbcType=TINYINT}
+      </if>
+    </where>
+ </select>
+ 
+ <select id="getTopicIdListByMid" resultType="java.lang.Long"  parameterType="com.xinmao.common.userOperationCenter.domain.CommonComment">
+    select 
+      article_id
+    from common_comment
+      <where>
+        is_delete = 0
+      <if test="mid != null">
+        and mid =  #{mid,jdbcType=BIGINT}
+      </if>
+      <if test="source != null">
+        and source =  #{source,jdbcType=INTEGER}
+      </if>
+    </where>
+ </select>
+ 
+ 
+ <select id="getCommonCommentListByMidAndArticleId"  resultMap="BaseResultMap"  parameterType="com.xinmao.common.userOperationCenter.domain.CommonComment">
+    select 
+      <include refid="Base_Column_List" />
+    from common_comment
+      <where>
+        is_delete = 0
+      <if test="mid != null">
+        and mid =  #{mid,jdbcType=BIGINT}
+      </if>
+      <if test="source != null">
+        and source =  #{source,jdbcType=INTEGER}
+      </if>
+      <if test="articleId != null">
+        and article_id =  #{articleId,jdbcType=BIGINT}
+      </if>
+      <if test="status != null">
+        and status =  #{status,jdbcType=TINYINT}
+      </if>
+    </where>
+ </select>
+  
+</mapper>

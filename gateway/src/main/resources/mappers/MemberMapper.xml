@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xinmao.gateway.mapper.MemberMapper">
+  <resultMap id="BaseResultMap" type="com.xinmao.common.userCenter.domain.Member">
+    <id column="mid" jdbcType="BIGINT" property="mid" />
+    <result column="alipay_open_id" jdbcType="VARCHAR" property="alipayOpenId" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="im_account" jdbcType="VARCHAR" property="imAccount" />
+    <result column="im_psw" jdbcType="VARCHAR" property="imPsw" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="avatar_thumbnail" jdbcType="VARCHAR" property="avatarThumbnail" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="hobby" jdbcType="VARCHAR" property="hobby" />
+    <result column="m_level" jdbcType="BIGINT" property="mLevel" />
+    <result column="p_level" jdbcType="TINYINT" property="pLevel" />
+    <result column="bonus_point" jdbcType="BIGINT" property="bonusPoint" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="online_time" jdbcType="TIMESTAMP" property="onlineTime" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+    <result column="is_temp" jdbcType="TINYINT" property="isTemp" />
+    <result column="reg_time" jdbcType="TIMESTAMP" property="regTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="answer_count" jdbcType="INTEGER" property="answerCount" />
+    <result column="answer_count_increment" jdbcType="INTEGER" property="answerCountIncrement" />
+    <result column="phone_count_increment" jdbcType="INTEGER" property="phoneCountIncrement" />
+    <result column="appreciated_count" jdbcType="INTEGER" property="appreciatedCount" />
+    <result column="candid_photo" jdbcType="VARCHAR" property="candidPhoto" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="ltid" jdbcType="BIGINT" property="ltid" />
+    <result column="work_years" jdbcType="TINYINT" property="workYears" />
+    <result column="case_hours" jdbcType="INTEGER" property="caseHours" />
+    <result column="work_data_modify_time" jdbcType="TIMESTAMP" property="workDataModifyTime" />
+    <result column="case_hours_modify_time" jdbcType="TIMESTAMP" property="caseHoursModifyTime" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="wx_account" jdbcType="VARCHAR" property="wxAccount" />
+    <result column="profession" jdbcType="VARCHAR" property="profession" />
+    <result column="motto" jdbcType="VARCHAR" property="motto" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="degree" jdbcType="VARCHAR" property="degree" />
+    <result column="training_experience" jdbcType="VARCHAR" property="trainingExperience" />
+    <result column="signature" jdbcType="VARCHAR" property="signature" />
+    <result column="primary_domain" jdbcType="VARCHAR" property="primaryDomain" />
+    <result column="photo_certification_dealt_rel" jdbcType="VARCHAR" property="photoCertificationDealtRel" />
+    <result column="photo_certification_dealt_preview_rel" jdbcType="VARCHAR" property="photoCertificationDealtPreviewRel" />
+    <result column="photo_identity_card_dealt_rel" jdbcType="VARCHAR" property="photoIdentityCardDealtRel" />
+    <result column="photo_identity_card_dealt_preview_rel" jdbcType="VARCHAR" property="photoIdentityCardDealtPreviewRel" />
+    <result column="p_source" jdbcType="BIGINT" property="pSource" />
+    <result column="is_audited" jdbcType="TINYINT" property="isAudited" />
+    <result column="order_factor" jdbcType="INTEGER" property="orderFactor" />
+    <result column="psycho_point" jdbcType="INTEGER" property="psychoPoint" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="is_enable" jdbcType="TINYINT" property="isEnable" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="login_days" jdbcType="INTEGER" property="loginDays" />
+    <result column="weights" jdbcType="INTEGER" property="weights" />
+    <result column="elect_factor" jdbcType="INTEGER" property="electFactor" />
+    <result column="supervisor_time" jdbcType="INTEGER" property="supervisorTime" />
+    <result column="liveness_factor" jdbcType="INTEGER" property="livenessFactor" />
+    <result column="advantage" jdbcType="VARCHAR" property="advantage" />
+    <result column="brief" jdbcType="VARCHAR" property="brief" />
+    <result column="is_xinmao_train" jdbcType="TINYINT" property="isXinmaoTrain" />
+    <result column="brief_modify_time" jdbcType="TIMESTAMP" property="briefModifyTime" />
+    <result column="primary_domain_modify_time" jdbcType="TIMESTAMP" property="primaryDomainModifyTime" />
+    <result column="info_channel" jdbcType="VARCHAR" property="infoChannel" />
+    <result column="referrer" jdbcType="VARCHAR" property="referrer" />
+    <result column="referrer_wechat" jdbcType="VARCHAR" property="referrerWechat" />
+    <result column="is_modify" jdbcType="TINYINT" property="isModify" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="certification_no" jdbcType="VARCHAR" property="certificationNo" />
+    <result column="id_card_no" jdbcType="VARCHAR" property="idCardNo" />
+    <result column="pro_background" jdbcType="TINYINT" property="proBackground" />
+    <result column="is_avatar_audit" jdbcType="TINYINT" property="isAvatarAudit" />
+    <result column="is_candid_photo_audit" jdbcType="TINYINT" property="isCandidPhotoAudit" />
+    <result column="avatar_audit" jdbcType="VARCHAR" property="avatarAudit" />
+    <result column="candid_photo_audit" jdbcType="VARCHAR" property="candidPhotoAudit" />
+    <result column="xm_training_times" jdbcType="INTEGER" property="xmTrainingTimes" />
+    <result column="light_consultation_status" jdbcType="TINYINT" property="lightConsultationStatus" />
+    <result column="bespeak_status" jdbcType="TINYINT" property="bespeakStatus" />
+    <result column="is_open_half_price_service" jdbcType="TINYINT" property="isOpenHalfPriceService" />
+    <result column="advisory_consultation_status" jdbcType="TINYINT" property="advisoryConsultationStatus" />
+    <result column="train_background" jdbcType="VARCHAR" property="trainBackground" />
+    <result column="work_way" jdbcType="VARCHAR" property="workWay" />
+    <result column="consult_genre" jdbcType="VARCHAR" property="consultGenre" />
+    <result column="good_direction" jdbcType="VARCHAR" property="goodDirection" />
+    <result column="consult_style" jdbcType="VARCHAR" property="consultStyle" />
+    <result column="consult_target" jdbcType="VARCHAR" property="consultTarget" />
+    <result column="learn_start_end" jdbcType="VARCHAR" property="learnStartEnd" />
+    <result column="member_channal_name" jdbcType="VARCHAR" property="memberChannalName" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="responsible" jdbcType="VARCHAR" property="responsible" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    mid, alipay_open_id, openid, im_account, im_psw, mobile_phone, avatar_thumbnail, 
+    avatar, user_name, user_password, email, nickname, sex, birthday, hobby, m_level, 
+    p_level, bonus_point, status, online_time, user_type, is_temp, reg_time, modify_time, 
+    title, answer_count, answer_count_increment, phone_count_increment, appreciated_count, 
+    candid_photo, location, province, city, district, ltid, work_years, case_hours, work_data_modify_time, 
+    case_hours_modify_time, industry, wx_account, profession, motto, school, major, degree, 
+    training_experience, signature, primary_domain, photo_certification_dealt_rel, photo_certification_dealt_preview_rel, 
+    photo_identity_card_dealt_rel, photo_identity_card_dealt_preview_rel, p_source, is_audited, 
+    order_factor, psycho_point, login_time, is_enable, is_delete, login_days, weights, 
+    elect_factor, supervisor_time, liveness_factor, advantage, brief, is_xinmao_train, 
+    brief_modify_time, primary_domain_modify_time, info_channel, referrer, referrer_wechat, 
+    is_modify, audit_time, certification_no, id_card_no, pro_background, is_avatar_audit, 
+    is_candid_photo_audit, avatar_audit, candid_photo_audit, xm_training_times, light_consultation_status, 
+    bespeak_status, is_open_half_price_service, advisory_consultation_status, train_background, 
+    work_way, consult_genre, good_direction, consult_style, consult_target, learn_start_end, 
+    member_channal_name, remarks, responsible
+  </sql>
+  
+  <select id="getMember" resultMap="BaseResultMap"  parameterType="com.xinmao.common.userCenter.domain.Member" >
+
+    select  <include refid="Base_Column_List"/>
+    from member
+    <where>
+      is_delete = 0
+      <if test="mobilePhone != null">
+        and mobile_phone = #{mobilePhone,jdbcType=VARCHAR}
+      </if>
+      <if test="userPassword != null">
+        and user_password = #{userPassword,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinmao.sc.orderCenter.mapper.TestScaleOrderMapper" >
+
+  <resultMap id="BaseResultMap" type="com.xinmao.sc.orderCenter.domain.TestScaleOrderMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="telephone" property="telephone" jdbcType="BIGINT" />
+    <result column="relateTestScaleId" property="relateTestScaleId" jdbcType="INTEGER" />
+    <result column="relateTestScaleName" property="relateTestScaleName" jdbcType="VARCHAR" />
+    <result column="relateQualitativeId" property="relateQualitativeId" jdbcType="INTEGER" />
+    <result column="relateQualitativeName" property="relateQualitativeName" jdbcType="VARCHAR" />
+    <result column="relateTestScalePrice" property="relateTestScalePrice" jdbcType="FLOAT" />
+    <result column="relateDisplayMode" property="relateDisplayMode" jdbcType="INTEGER" />
+    <result column="isNormal" property="isNormal" jdbcType="INTEGER" /> 
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,userId,userName,sex,birthday,telephone,relateTestScaleId,relateTestScaleName,relateQualitativeId,relateQualitativeName,relateTestScalePrice,relateDisplayMode,isNormal,is_enable,is_delete,create_time,update_time
+  </sql>
+
+  <select id="getTestScaleOrderNum" resultType="INTEGER" >
+    select 
+          count(*)
+    from testscaleorder 
+    
+    where 
+        is_delete = 0
+  </select>
+
+
+  <select id="getTestScaleOrderNumByUserId"  resultType="INTEGER"  parameterType="INTEGER">
+    
+    select 
+          count(*)
+    from testscaleorder 
+        
+    <where>
+        is_delete = 0
+      <if test="userId != null">
+        and userId = #{userId,jdbcType=INTEGER}
+      </if>
+    </where>
+        
+  </select>
+  
+
+  <select id="getTestScaleOrderNumByCondition" resultType="INTEGER" parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderMessage">
+    select 
+          count(*)
+    from testscaleorder 
+    
+    <where>
+        is_delete = 0
+      <if test="id != null">
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="userId != null">
+        and userId = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="relateTestScaleId != null">
+        and relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER}
+      </if>
+      <if test="telephone != null">
+        and telephone = #{telephone,jdbcType=BIGINT}
+      </if>
+      <if test="startTime != null">
+       <![CDATA[ and create_time >= #{startTime,jdbcType=VARCHAR} ]]>
+      </if>
+      <if test="endTime != null">
+       <![CDATA[ and create_time <= #{endTime,jdbcType=VARCHAR} ]]>
+      </if>
+    </where>
+  </select>
+
+
+<select id="getLatestOrder" resultMap="BaseResultMap" parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderMessage">
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaleorder 
+    <where>
+        is_delete = 0
+      <if test="relateTestScaleId != null">
+        and relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER}
+      </if>
+      <if test="userId != null">
+        and userId = #{userId,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by update_time desc
+    
+    limit 1
+  </select>
+
+
+<select id="getAllMessageByLimit" resultMap="BaseResultMap" parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderMessage">
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaleorder 
+    <where>
+        is_delete = 0
+      <if test="id != null">
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="telephone != null">
+        and telephone = #{telephone,jdbcType=BIGINT}
+      </if>
+      <if test="userId != null">
+        and userId = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="startTime != null">
+       <![CDATA[ and create_time >= #{startTime,jdbcType=VARCHAR} ]]>
+      </if>
+      <if test="endTime != null">
+       <![CDATA[ and create_time <= #{endTime,jdbcType=VARCHAR} ]]>
+      </if>
+    </where>
+    order by update_time desc
+    
+    limit 800
+  </select>
+
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderMessage">
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaleorder 
+    <where>
+        is_delete = 0
+      <if test="id != null">
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="telephone != null">
+        and telephone = #{telephone,jdbcType=BIGINT}
+      </if>
+      <if test="userId != null">
+        and userId = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="startTime != null">
+       <![CDATA[ and create_time >= #{startTime,jdbcType=VARCHAR} ]]>
+      </if>
+      <if test="endTime != null">
+       <![CDATA[ and create_time <= #{endTime,jdbcType=VARCHAR} ]]>
+      </if>
+    </where>
+    order by update_time desc
+  </select>
+  
+  <select id="getMessById" resultMap="BaseResultMap" parameterType="int">
+   select 
+          <include refid="Base_Column_List"/>
+   from 
+        testscaleorder  
+   where  is_delete = 0 and 
+          id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertMess" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderMessage" >
+    insert into testscaleorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        userId,
+      </if>  
+      <if test="userName != null" >
+        userName,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="relateTestScaleId != null" >
+        relateTestScaleId,
+      </if>
+      <if test="relateTestScaleName != null" >
+        relateTestScaleName,
+      </if>
+      <if test="relateQualitativeId != null" >
+        relateQualitativeId,
+      </if>
+      <if test="relateQualitativeName != null" >
+        relateQualitativeName,
+      </if>
+      <if test="relateTestScalePrice != null" >
+        relateTestScalePrice,
+      </if>  
+      <if test="relateDisplayMode != null" >
+        relateDisplayMode,
+      </if> 
+      <if test="isNormal != null" >
+        isNormal,
+      </if> 
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if> 
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=BIGINT},
+      </if>
+      <if test="relateTestScaleId != null" >
+        #{relateTestScaleId,jdbcType=INTEGER},
+      </if>
+      <if test="relateTestScaleName != null" >
+        #{relateTestScaleName,jdbcType=VARCHAR},
+      </if>
+      <if test="relateQualitativeId != null" >
+        #{relateQualitativeId,jdbcType=INTEGER},
+      </if>
+      <if test="relateQualitativeName != null" >
+        #{relateQualitativeName,jdbcType=VARCHAR},
+      </if>
+      <if test="relateTestScalePrice != null" >
+        #{relateTestScalePrice,jdbcType=FLOAT},
+      </if>  
+      <if test="relateDisplayMode != null" >
+        #{relateDisplayMode,jdbcType=INTEGER},
+      </if>
+      <if test="isNormal != null" >
+        #{isNormal,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateMess" parameterType="com.xinmao.sc.orderCenter.domain.TestScaleOrderMessage" >
+    update testscaleorder
+    <set >
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=INTEGER},
+      </if> 
+      <if test="userName != null" >
+        userName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=BIGINT},
+      </if>
+      <if test="relateTestScaleId != null" >
+        relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER},
+      </if>
+      <if test="relateTestScaleName != null" >
+        relateTestScaleName = #{relateTestScaleName,jdbcType=VARCHAR},
+      </if>
+      <if test="relateQualitativeId != null" >
+        relateQualitativeId = #{relateQualitativeId,jdbcType=INTEGER},
+      </if>
+      <if test="relateQualitativeName != null" >
+        relateQualitativeName = #{relateQualitativeName,jdbcType=VARCHAR},
+      </if>
+      <if test="relateTestScalePrice != null" >
+        relateTestScalePrice = #{relateTestScalePrice,jdbcType=FLOAT},
+      </if>  
+      <if test="relateDisplayMode != null" >
+        relateDisplayMode = #{relateDisplayMode,jdbcType=INTEGER},
+      </if> 
+      <if test="isNormal != null" >
+        isNormal = #{isNormal,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+</mapper>

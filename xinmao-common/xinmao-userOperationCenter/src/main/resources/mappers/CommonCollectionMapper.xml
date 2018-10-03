@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xinmao.common.userOperationCenter.mapper.CommonCollectionMapper">
+  <resultMap id="BaseResultMap" type="com.xinmao.common.userOperationCenter.domain.CommonCollection">
+    <id column="col_id" jdbcType="BIGINT" property="colId" />
+    <result column="mid" jdbcType="BIGINT" property="mid" />
+    <result column="article_id" jdbcType="BIGINT" property="articleId" />
+    <result column="collection_time" jdbcType="TIMESTAMP" property="collectionTime" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    col_id, mid, article_id, collection_time, source, create_time, modify_time, is_delete
+  </sql>
+ 
+ 
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="colId"  parameterType="com.xinmao.common.userOperationCenter.domain.CommonCollection">
+    insert into common_collection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="colId != null">
+        col_id,
+      </if>
+      <if test="mid != null">
+        mid,
+      </if>
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="collectionTime != null">
+        collection_time,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="colId != null">
+        #{colId,jdbcType=BIGINT},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=BIGINT},
+      </if>
+      <if test="articleId != null">
+        #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="collectionTime != null">
+        #{collectionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+
+  <update id="cancelCollection"  parameterType="com.xinmao.common.userOperationCenter.domain.CommonCollection" >
+    update common_collection
+    <set >
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where mid = #{mid,jdbcType=BIGINT} and article_id = #{articleId,jdbcType=BIGINT} and source = #{source,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+  
+  <select id="getCollectionListByUserId"  resultMap="BaseResultMap"  parameterType="com.xinmao.common.userOperationCenter.domain.CommonCollection" >
+    select  <include refid="Base_Column_List" />
+    from common_collection  
+    where 
+        is_delete = 0
+       <if test="source != null">
+        and source =  #{source,jdbcType=INTEGER}
+       </if> 
+       <if test="mid != null">
+        and mid =  #{mid,jdbcType=INTEGER}
+       </if> 
+       <if test="articleId != null">
+        and article_id =  #{articleId,jdbcType=INTEGER}
+       </if> 
+       
+        order by create_time desc
+  </select>
+  
+</mapper>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinmao.sc.testCenter.mapper.TestScaleTitleMapper" >
+
+  <resultMap id="BaseResultMap" type="com.xinmao.sc.testCenter.domain.TestScaleTitleMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="relateTestScaleId" property="relateTestScaleId" jdbcType="INTEGER" />
+    <result column="problemWord" property="problemWord" jdbcType="VARCHAR" />
+    <result column="problemPicSrc" property="problemPicSrc" jdbcType="VARCHAR" />
+    <result column="optionType" property="optionType" jdbcType="INTEGER" />
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,relateTestScaleId,problemWord,problemPicSrc,optionType,is_enable,is_delete,create_time,update_time
+  </sql>
+  
+    <select id="selectCount" resultType="Integer"  parameterType="com.xinmao.sc.testCenter.domain.TestScaleTitleMessage">
+    select count(*)
+    from testscaletitle 
+    <where>
+        is_delete = 0
+      <if test="relateTestScaleId != null">
+        and relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER}
+      </if>
+      <if test="problemWord != null">
+        and problemWord like "%"#{problemWord,jdbcType=VARCHAR}"%"
+      </if>
+    </where>
+  </select>
+  
+  <select id="selectAllBySearchIdList" resultMap="BaseResultMap" parameterType="com.xinmao.sc.testCenter.domain.TestScaleTitleMessage">
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaletitle 
+    <where>
+        is_delete = 0
+        <if test="searchList != null">
+            and id in
+           <foreach item="item" index="index" collection="searchList"  
+                 open="(" separator="," close=")">  
+                    #{item}  
+           </foreach>  
+        </if>
+    </where>
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.xinmao.sc.testCenter.domain.TestScaleTitleMessage">
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaletitle 
+    <where>
+        is_delete = 0
+      <if test="relateTestScaleId != null">
+        and relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by id asc
+  </select>
+  
+  <select id="selectAllId" resultType="int">
+    select 
+          id
+    from testscaletitle 
+    <where>
+        is_delete = 0
+      <if test="relateTestScaleId != null">
+        and relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by id asc
+  </select>
+  
+  
+  
+  <select id="searchMessage" resultMap="BaseResultMap">
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaletitle 
+    <where>
+        is_delete = 0
+      <if test="relateTestScaleId != null">
+        and relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER}
+      </if>
+      <if test="problemWord != null">
+        and problemWord like "%"#{problemWord,jdbcType=VARCHAR}"%"
+      </if>
+    </where>
+    order by id asc
+  </select>
+  
+  
+  <select id="getMessById" resultMap="BaseResultMap" parameterType="int">
+   select 
+          <include refid="Base_Column_List"/>
+   from 
+        testscaletitle  
+   where  is_delete = 0 and 
+          id = #{id,jdbcType=INTEGER} 
+  </select>
+  
+  <insert id="insertMess"  useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.sc.testCenter.domain.TestScaleTitleMessage" >
+    insert into testscaletitle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="relateTestScaleId != null" >
+        relateTestScaleId,
+      </if>
+      <if test="problemWord != null" >
+        problemWord,
+      </if>
+      <if test="problemPicSrc != null" >
+        problemPicSrc,
+      </if>
+      <if test="optionType != null" >
+        optionType,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="relateTestScaleId != null" >
+        #{relateTestScaleId,jdbcType=INTEGER},
+      </if>
+      <if test="problemWord != null" >
+        #{problemWord,jdbcType=VARCHAR},
+      </if>
+      <if test="problemPicSrc != null" >
+        #{problemPicSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="optionType != null" >
+        #{optionType,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateMess" parameterType="com.xinmao.sc.testCenter.domain.TestScaleTitleMessage" >
+    update testscaletitle
+    <set >
+      <if test="relateTestScaleId != null" >
+        relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER},
+      </if>
+      <if test="problemWord != null" >
+        problemWord = #{problemWord,jdbcType=VARCHAR},
+      </if>
+      <if test="problemPicSrc != null" >
+        problemPicSrc = #{problemPicSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="optionType != null" >
+        optionType = #{optionType,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+  <update id="batchDeleteMessByTestScaleId" parameterType="com.xinmao.sc.testCenter.domain.TestScaleTitleMessage" >
+    update testscaletitle
+    <set >
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+       where relateTestScaleId = #{relateTestScaleId,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+</mapper>

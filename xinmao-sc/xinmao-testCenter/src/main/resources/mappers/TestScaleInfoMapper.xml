@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinmao.sc.testCenter.mapper.TestScaleInfoMapper" >
+
+  <resultMap id="BaseResultMap" type="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="abstractStr" property="abstractStr" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="relatePicSrc" property="relatePicSrc" jdbcType="VARCHAR" />
+    <result column="isTop" property="isTop" jdbcType="INTEGER" />
+    <result column="isShowDimensionProfile" property="isShowDimensionProfile" jdbcType="INTEGER" /> 
+    <result column="founder" property="founder" jdbcType="VARCHAR" />
+    <result column="recommendedTestInterval" property="recommendedTestInterval" jdbcType="INTEGER" />
+    <result column="displayMode" property="displayMode" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="FLOAT" />
+    <result column="numberOfTest" property="numberOfTest" jdbcType="INTEGER" />
+    <result column="isNewResultPage" property="isNewResultPage" jdbcType="INTEGER" />
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+
+  
+  <sql id="Base_Column_List" >
+    id, name,abstractStr,description,relatePicSrc,isTop,isShowDimensionProfile,founder,recommendedTestInterval,displayMode,price,numberOfTest,isNewResultPage,is_enable,is_delete,create_time,update_time
+  </sql>
+  
+
+
+  <select id="getNewestMessage" resultMap="BaseResultMap" parameterType="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaleinfo 
+    
+    where 
+        is_delete = 0 
+       <if test="isEnable != null">
+        and is_enable =  #{isEnable,jdbcType=INTEGER}
+       </if> 
+        order by create_time desc
+  </select>
+
+  <select id="getHotMessage" resultMap="BaseResultMap" parameterType="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaleinfo 
+    
+    where
+        is_delete = 0
+    <if test="isEnable != null">
+        and is_enable =  #{isEnable,jdbcType=INTEGER}
+    </if>
+    <if test="searchList != null">
+            and id in
+        <foreach item="item" index="index" collection="searchList"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+    </if>
+    order by numberOfTest desc
+    
+    <if test="limit != null">
+        limit  #{limit,jdbcType=INTEGER}
+    </if>
+    
+  </select>
+
+<select id="getTestScaleNum" resultType="Integer" >
+    select 
+          count(*)
+    from testscaleinfo 
+    
+    where 
+        is_delete = 0
+  </select>
+  
+  
+   <select id="getTestScaleNumByCondition" resultType="Integer"  parameterType="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+    select 
+          count(*)
+    from testscaleinfo 
+    
+    <where>
+        is_delete = 0
+      <if test="name != null">
+        and  name like "%"#{name,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="isEnable != null">
+         and is_enable =  #{isEnable,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+
+<select id="getAllMessageByIdList" resultMap="BaseResultMap" parameterType="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaleinfo 
+    
+    where 
+        is_delete = 0 
+       <if test="isEnable != null">
+        and is_enable =  #{isEnable,jdbcType=INTEGER}
+       </if>
+        and id in
+        <foreach item="item" index="index" collection="searchList"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+        order by create_time desc
+  </select>
+  
+  <!-- 
+  <select id="getAllMessageByCollectIdList" resultMap="BaseResultMap" parameterType="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaleinfo 
+    
+    where 
+        is_delete = 0 
+       <if test="isEnable != null">
+        and is_enable =  #{isEnable,jdbcType=INTEGER}
+       </if>
+        and id in
+        <foreach item="item" index="index" collection="searchList"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+  </select>
+   -->
+  
+<select id="getAllMessageFromClassPage" resultMap="BaseResultMap" parameterType="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaleinfo 
+    
+    where 
+        is_delete = 0
+        and is_enable = 1
+        and id in
+        <foreach item="item" index="index" collection="searchList"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+        order by update_time desc
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaleinfo 
+    
+    <where>
+        is_delete = 0
+      <if test="id != null">
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="name != null">
+        and name like "%"#{name,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="isTop != null">
+        and isTop = #{isTop,jdbcType=INTEGER}
+      </if>
+      <if test="isEnable != null">
+        and is_enable = #{isEnable,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by update_time desc
+  </select>
+  
+  <select id="getMessById" resultMap="BaseResultMap"  parameterType="int">
+   select 
+          <include refid="Base_Column_List"/>
+   from 
+        testscaleinfo  
+       where   is_delete = 0   and
+       id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+    <select id="getMessByIdFromFront" resultMap="BaseResultMap"  parameterType="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+   select 
+          <include refid="Base_Column_List"/>
+   from 
+        testscaleinfo  
+       where   is_delete = 0 
+      <if test="isEnable != null">
+        and is_enable = #{isEnable,jdbcType=INTEGER}
+      </if>
+       and
+       id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+  <insert id="insertMess" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+    insert into testscaleinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="abstractStr != null" >
+        abstractStr,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="relatePicSrc != null" >
+        relatePicSrc,
+      </if>
+      <if test="isTop != null" >
+        isTop,
+      </if>
+      <if test="isShowDimensionProfile != null" >
+        isShowDimensionProfile,
+      </if>
+      <if test="founder != null" >
+        founder,
+      </if>
+      <if test="recommendedTestInterval != null" >
+        recommendedTestInterval,
+      </if> 
+      <if test="displayMode != null" >
+        displayMode,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="numberOfTest != null" >
+        numberOfTest,
+      </if>
+      <if test="isNewResultPage != null" >
+        isNewResultPage,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="abstractStr != null" >
+        #{abstractStr,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="relatePicSrc != null" >
+        #{relatePicSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="isTop != null" >
+        #{isTop,jdbcType=INTEGER},
+      </if>  
+      <if test="isShowDimensionProfile != null" >
+        #{isShowDimensionProfile,jdbcType=INTEGER},
+      </if>
+      <if test="founder != null" >
+        #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedTestInterval != null" >
+        #{recommendedTestInterval,jdbcType=INTEGER},
+      </if>  
+      <if test="displayMode != null" >
+        #{displayMode,jdbcType=INTEGER},
+      </if>  
+      <if test="price != null" >
+        #{price,jdbcType=FLOAT},
+      </if>  
+      <if test="numberOfTest != null" >
+        #{numberOfTest,jdbcType=INTEGER},
+      </if>
+      <if test="isNewResultPage != null" >
+        #{isNewResultPage,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="addNumberOfTest" parameterType="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+    update testscaleinfo
+    set
+        numberOfTest = numberOfTest+1,
+        
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+     
+    where id = #{id,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+  
+  
+    <update id="updateMess" parameterType="com.xinmao.sc.testCenter.domain.TestScaleInfoMessage" >
+    update testscaleinfo
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="abstractStr != null" >
+        abstractStr = #{abstractStr,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="relatePicSrc != null" >
+        relatePicSrc = #{relatePicSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="isTop != null" >
+        isTop = #{isTop,jdbcType=INTEGER},
+      </if>
+      <if test="isShowDimensionProfile != null" >
+        isShowDimensionProfile = #{isShowDimensionProfile,jdbcType=INTEGER},
+      </if>
+      <if test="founder != null" >
+        founder = #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedTestInterval != null" >
+        recommendedTestInterval = #{recommendedTestInterval,jdbcType=INTEGER},
+      </if> 
+      <if test="displayMode != null" >
+        displayMode = #{displayMode,jdbcType=INTEGER},
+      </if> 
+      <if test="price != null" >
+        price = #{price,jdbcType=FLOAT},
+      </if>  
+      <if test="numberOfTest != null" >
+        numberOfTest = #{numberOfTest,jdbcType=INTEGER},
+      </if> 
+      <if test="isNewResultPage != null" >
+        isNewResultPage = #{isNewResultPage,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+</mapper>

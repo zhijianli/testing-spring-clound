@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xinmao.common.userOperationCenter.mapper.CommonMemberPraiseRelationMapper">
+  <resultMap id="BaseResultMap" type="com.xinmao.common.userOperationCenter.domain.CommonMemberPraiseRelation">
+    <id column="praise_num_id" jdbcType="BIGINT" property="praiseNumId" />
+    <result column="mid" jdbcType="BIGINT" property="mid" />
+    <result column="relation_id" jdbcType="BIGINT" property="relationId" />
+    <result column="like_position" jdbcType="INTEGER" property="likePosition" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List">
+    praise_num_id, mid, relation_id,like_position,create_time, modify_time, is_delete
+  </sql>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="praiseNumId" parameterType="com.xinmao.common.userOperationCenter.domain.CommonMemberPraiseRelation">
+    insert into common_member_praise_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="praiseNumId != null">
+        praise_num_id,
+      </if>
+      <if test="mid != null">
+        mid,
+      </if>
+      <if test="relationId != null">
+        relation_id,
+      </if> 
+      <if test="likePosition != null">
+        like_position,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="praiseNumId != null">
+        #{praiseNumId,jdbcType=BIGINT},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=BIGINT},
+      </if>
+      <if test="relationId != null">
+        #{relationId,jdbcType=BIGINT},
+      </if>  
+      <if test="likePosition != null">
+        #{likePosition,jdbcType=INTEGER},
+      </if>  
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <select id="getPraiseByRelationId" resultMap="BaseResultMap" parameterType="com.xinmao.common.userOperationCenter.domain.CommonMemberPraiseRelation" >
+    select
+    mid,create_time
+    from common_member_praise_relation
+    where
+        is_delete = 0
+        and relation_id = #{relationId,jdbcType=BIGINT}
+        and like_position = #{likePosition,jdbcType=INTEGER}
+        order by create_time desc
+  </select>
+  
+</mapper>

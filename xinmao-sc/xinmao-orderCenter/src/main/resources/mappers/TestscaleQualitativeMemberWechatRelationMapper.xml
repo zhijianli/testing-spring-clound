@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xinmao.sc.orderCenter.mapper.TestscaleQualitativeMemberWechatRelationMapper">
+  <resultMap id="BaseResultMap" type="com.xinmao.sc.orderCenter.domain.TestscaleQualitativeMemberWechatRelation">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="relateTestScaleId" jdbcType="BIGINT" property="relateTestScaleId" />
+    <result column="qualitativeId" jdbcType="BIGINT" property="qualitativeId" />
+    <result column="mid" jdbcType="BIGINT" property="mid" />
+    <result column="mwHeadimgurl" jdbcType="VARCHAR" property="mwHeadimgurl" />
+    <result column="is_enable" jdbcType="TINYINT" property="isEnable" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List">
+    id, relateTestScaleId, qualitativeId, mid, mwHeadimgurl, is_enable, is_delete, create_time, 
+    update_time
+  </sql>
+  
+  <select id="selectByTestScaleIdAndMid" parameterType="com.xinmao.sc.orderCenter.domain.TestscaleQualitativeMemberWechatRelation" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from testscale_qualitative_member_wechat_relation
+    where is_delete = 0 
+          and relateTestScaleId =  #{relateTestScaleId,jdbcType=BIGINT}
+          and mid =  #{mid,jdbcType=BIGINT}
+  </select>
+  
+  <select id="getListByQidAndMidList" parameterType="com.xinmao.sc.orderCenter.domain.TestscaleQualitativeMemberWechatRelation" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from testscale_qualitative_member_wechat_relation
+    where is_delete = 0 
+    <if test="qualitativeId != null">
+        and qualitativeId =  #{qualitativeId,jdbcType=BIGINT}
+    </if>
+    <if test="searchIdList != null">
+            and mid in
+        <foreach item="item" index="index" collection="searchIdList"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+    </if>
+    order by create_time desc
+  </select>
+  
+  
+  <select id="getListByQidAndMid" parameterType="com.xinmao.sc.orderCenter.domain.TestscaleQualitativeMemberWechatRelation" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from testscale_qualitative_member_wechat_relation
+    where is_delete = 0 
+    <if test="qualitativeId != null">
+        and qualitativeId =  #{qualitativeId,jdbcType=BIGINT}
+    </if>
+    <if test="mid != null">
+        and mid =  #{mid,jdbcType=BIGINT}
+    </if>
+  </select>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.sc.orderCenter.domain.TestscaleQualitativeMemberWechatRelation">
+    insert into testscale_qualitative_member_wechat_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="relateTestScaleId != null">
+        relateTestScaleId,
+      </if>
+      <if test="qualitativeId != null">
+        qualitativeId,
+      </if>
+      <if test="mid != null">
+        mid,
+      </if>
+      <if test="mwHeadimgurl != null">
+        mwHeadimgurl,
+      </if>
+      <if test="isEnable != null">
+        is_enable,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="relateTestScaleId != null">
+        #{relateTestScaleId,jdbcType=BIGINT},
+      </if>
+      <if test="qualitativeId != null">
+        #{qualitativeId,jdbcType=BIGINT},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=BIGINT},
+      </if>
+      <if test="mwHeadimgurl != null">
+        #{mwHeadimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+ 
+  <update id="updateMessage" parameterType="com.xinmao.sc.orderCenter.domain.TestscaleQualitativeMemberWechatRelation">
+    update testscale_qualitative_member_wechat_relation
+    <set>
+      <if test="qualitativeId != null">
+        qualitativeId = #{qualitativeId,jdbcType=BIGINT},
+      </if>
+      <if test="mwHeadimgurl != null">
+        mwHeadimgurl = #{mwHeadimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where is_delete = 0 
+    and relateTestScaleId = #{relateTestScaleId,jdbcType=BIGINT}
+    and mid = #{mid,jdbcType=BIGINT}
+  </update>
+  
+</mapper>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinmao.sc.testCenter.mapper.TestScaleDimensionTitleRelationMapper" >
+
+  <resultMap id="BaseResultMap" type="com.xinmao.sc.testCenter.domain.TestScaleDimensionTitleRelationMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="testScaleDimensionId" property="testScaleDimensionId" jdbcType="INTEGER" />
+    <result column="testScaleTitleId" property="testScaleTitleId" jdbcType="INTEGER" />
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,testScaleDimensionId,testScaleTitleId,is_enable,is_delete,create_time,update_time
+  </sql>
+
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.xinmao.sc.testCenter.domain.TestScaleDimensionTitleRelationMessage">
+    select 
+          <include refid="Base_Column_List"/>
+    from testscaledimensiontitlerelation 
+    <where>
+        is_delete = 0
+      <if test="testScaleTitleId != null">
+        and testScaleTitleId = #{testScaleTitleId,jdbcType=INTEGER}
+      </if>
+      <if test="testScaleDimensionId != null">
+        and testScaleDimensionId = #{testScaleDimensionId,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+  
+  <select id="getMessById" resultMap="BaseResultMap" parameterType="int">
+   select 
+          <include refid="Base_Column_List"/>
+   from 
+        testscaledimensiontitlerelation  
+   where  is_delete = 0 and 
+          id = #{id,jdbcType=INTEGER}
+    order by update_time desc  
+  </select>
+  
+  <insert id="insertMess" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.sc.testCenter.domain.TestScaleDimensionTitleRelationMessage" >
+    insert into testscaledimensiontitlerelation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="testScaleDimensionId != null" >
+        testScaleDimensionId,
+      </if>
+      <if test="testScaleTitleId != null" >
+        testScaleTitleId,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="testScaleDimensionId != null" >
+        #{testScaleDimensionId,jdbcType=INTEGER},
+      </if>
+      <if test="testScaleTitleId != null" >
+        #{testScaleTitleId,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateMess" parameterType="com.xinmao.sc.testCenter.domain.TestScaleDimensionTitleRelationMessage" >
+    update testscaledimensiontitlerelation
+    <set >
+      <if test="testScaleDimensionId != null" >
+        testScaleDimensionId = #{testScaleDimensionId,jdbcType=INTEGER},
+      </if>
+      <if test="testScaleTitleId != null" >
+        testScaleTitleId = #{testScaleTitleId,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+  
+  <update id="batchDeleteMess" parameterType="com.xinmao.sc.testCenter.domain.TestScaleDimensionTitleRelationMessage" >
+    update testscaledimensiontitlerelation
+    <set >
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+       where 
+        is_delete = 0 and
+        id in
+        <foreach item="item" index="index" collection="searchList"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+  </update>
+  
+  <update id="batchDeleteMessByDimensionIdList" parameterType="com.xinmao.sc.testCenter.domain.TestScaleDimensionTitleRelationMessage" >
+    update testscaledimensiontitlerelation
+    <set >
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+       where 
+        is_delete = 0 and
+        testScaleDimensionId in
+        <foreach item="item" index="index" collection="searchList"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+  </update>
+  
+    <update id="batchDeleteMessByTitleId" parameterType="com.xinmao.sc.testCenter.domain.TestScaleDimensionTitleRelationMessage" >
+    update testscaledimensiontitlerelation
+    <set >
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+       where testScaleTitleId = #{testScaleTitleId,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+  <update id="batchDeleteMessByDimensionId" parameterType="com.xinmao.sc.testCenter.domain.TestScaleDimensionTitleRelationMessage" >
+    update testscaledimensiontitlerelation
+    <set >
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+       where testScaleDimensionId = #{testScaleDimensionId,jdbcType=INTEGER} and is_delete = 0
+  </update>
+  
+</mapper>
