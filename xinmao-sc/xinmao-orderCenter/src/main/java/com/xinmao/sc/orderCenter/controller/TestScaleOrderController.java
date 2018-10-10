@@ -491,7 +491,9 @@ public class TestScaleOrderController implements TestScaleOrderApi{
 	 * @param 
 	 */
     @RequestMapping(value="/getTestResultMessage",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-    public Object getTestResultMessage(HttpServletRequest request){
+    public Object getTestResultMessage(HttpServletRequest request,HttpServletResponse response){
+    	
+    	response.addHeader("Access-Control-Allow-Origin", "*");
 
     	ResultEntity result = new ResultEntity(); 
     	TestScaleOrderMessage tsoMessage = new TestScaleOrderMessage();
@@ -685,8 +687,10 @@ public class TestScaleOrderController implements TestScaleOrderApi{
     
     
     @RequestMapping(value="/getTestResultListMessage",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-    public Object getTestResultListMessage(TestScaleOrderMessage tsoMessage){
+    public Object getTestResultListMessage(TestScaleOrderMessage tsoMessage,HttpServletResponse response){
 
+    	response.addHeader("Access-Control-Allow-Origin", "*");
+    	
     	ResultEntity result = new ResultEntity(); 
     	
     	List<TestScaleOrderMessage> tsoList = new ArrayList<TestScaleOrderMessage>();
@@ -844,7 +848,9 @@ public class TestScaleOrderController implements TestScaleOrderApi{
     }
 
     @RequestMapping(value="/isHaveTestOrder",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-    public Object isHaveTestOrder(TestScaleOrderMessage testScaleOrderMessage){
+    public Object isHaveTestOrder(TestScaleOrderMessage testScaleOrderMessage,HttpServletResponse response){
+    	
+    	response.addHeader("Access-Control-Allow-Origin", "*");
     	ResultEntity result = new ResultEntity();
     	Integer testScaleOrderNum = null;
     	try{

@@ -303,7 +303,9 @@ public class TestScaleInfoController implements TestScaleInfoApi{
 	}
 
     @RequestMapping(value="/getCollectionTestList",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-    public Object getCollectionTestList(CommonCollection commonCollection){
+    public Object getCollectionTestList(CommonCollection commonCollection,HttpServletResponse response){
+    	
+    	response.addHeader("Access-Control-Allow-Origin", "*");
     	
     	ResultEntity result = new ResultEntity(); 
     	List<TestScaleInfoMessage> collectionTestList = new  ArrayList<TestScaleInfoMessage>();
@@ -512,8 +514,10 @@ public class TestScaleInfoController implements TestScaleInfoApi{
 
     
     @RequestMapping(value="/getRecommendTestScale",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-    public Object getRecommendTestScale(HttpServletRequest request){
+    public Object getRecommendTestScale(HttpServletRequest request,HttpServletResponse response){
 
+    	response.addHeader("Access-Control-Allow-Origin", "*");
+    	
     	ResultEntity result = new ResultEntity(); 
     	List<TestScaleInfoMessage> recommendTestScaleList = new ArrayList<TestScaleInfoMessage>();
     	int count = 0;
@@ -624,7 +628,9 @@ public class TestScaleInfoController implements TestScaleInfoApi{
     
     //获取量表分类列表
     @RequestMapping(value="/getHomePageMessage",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
-    public Object getHomePageMessage(){
+    public Object getHomePageMessage(HttpServletResponse response){
+    	
+    	response.addHeader("Access-Control-Allow-Origin", "*");
     	
     	ResultEntity result = new ResultEntity(); 
     	List<TestScaleClassMessage> homeRecommClassList = new ArrayList<TestScaleClassMessage>();
