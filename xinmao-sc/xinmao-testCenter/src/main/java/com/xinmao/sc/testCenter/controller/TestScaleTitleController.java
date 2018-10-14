@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,8 +52,10 @@ public class TestScaleTitleController{
     
 
     @RequestMapping(value="/getAllTitleAndOption",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-    public Object getAllTitleAndOption(HttpServletRequest request){
+    public Object getAllTitleAndOption(HttpServletRequest request,HttpServletResponse response){
 
+    	response.addHeader("Access-Control-Allow-Origin", "*");
+    	
     	ResultEntity result = new ResultEntity(); 
     	List<TestScaleTitleMessage> tstList = new ArrayList<TestScaleTitleMessage>();
     	Integer isNewResultPage =0;

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -80,8 +82,10 @@ public class CommonCollectionController implements CommonCollectionApi {
     
     
     @RequestMapping(value = "collectionTestScale",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
-    public Object collectionTestScale(CommonCollection commonCollection){
+    public Object collectionTestScale(CommonCollection commonCollection,HttpServletResponse response){
          
+    	response.addHeader("Access-Control-Allow-Origin", "*");
+    	
     	ResultEntity result = new ResultEntity(); 
     	Boolean isSuccess = false;
     	try{

@@ -1,26 +1,21 @@
 package com.xinmao.common.userOperationCenter.controller;
 
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageHelper;
 import com.xinmao.common.entity.ErrorCode;
 import com.xinmao.common.entity.ResultEntity;
+import com.xinmao.common.userCenter.domain.Member;
 import com.xinmao.common.userCenter.domain.wechat.MemberWechat;
 import com.xinmao.common.userCenter.domain.wechat.UserWeiXin;
-import com.xinmao.common.userOperationCenter.api.CommonCollectionApi;
-import com.xinmao.common.userOperationCenter.domain.CommonCollection;
-import com.xinmao.common.userOperationCenter.service.CommonCollectionService;
 import com.xinmao.common.userOperationCenter.service.MemberWechatService;
 import com.xinmao.common.util.wechat.OAuthService;
 
@@ -77,6 +72,36 @@ public class MemberWechatController{
         result.setMsg(ErrorCode.SUCCESS.getMessage());
         return result;
     }
+    
+    /**
+     * @Description: 根据userId查询用户信息
+     * @Author: 李志坚
+     * @Date: 2018/10/14 
+     */
+    @RequestMapping(method = RequestMethod.POST,value = "/getMemberByMid.json")
+	@ResponseBody
+	public Object getMemberByMid(HttpSession session, HttpServletRequest request,HttpServletResponse response,Long mid)
+	{
+    	
+    	response.addHeader("Access-Control-Allow-Origin", "*");
+    	
+		ResultEntity result = new ResultEntity();
+
+		if (mid == null)
+		{
+			result.setCode(ResultEntity.ERROR);
+			result.setMsg("mid不能为空");
+			return result;
+		}
+
+		Member member = memberWechatService.selectMemberByMid(mid);
+        
+		result.put("nickname", member.getNickname());
+		result.put("mobilePhone", member.getMobilePhone());
+		result.put("avatar", member.getAvatar());
+		result.setCode(ResultEntity.SUCCESS);
+		return result;
+	}
     
 //    @RequestMapping(value = "collectionTestScale",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
 //    public Object collectionTestScale(CommonCollection commonCollection){

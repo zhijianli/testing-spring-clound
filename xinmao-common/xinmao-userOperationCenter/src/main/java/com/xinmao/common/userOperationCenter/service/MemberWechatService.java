@@ -1,9 +1,7 @@
 package com.xinmao.common.userOperationCenter.service;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +17,8 @@ import com.xinmao.common.userOperationCenter.mapper.MemberMapper;
 import com.xinmao.common.userOperationCenter.mapper.MemberWechatMapper;
 
 @Service
-public class MemberWechatService
-{
+public class MemberWechatService{
+	
 	@Autowired
 	MemberWechatMapper memberWechatMapper;
 	@Autowired
@@ -225,4 +223,10 @@ public class MemberWechatService
 		
 		return member;
 	}
+	
+	
+    public Member selectMemberByMid(Long mid) {
+        return memberMapper.selectByPrimaryKey(mid);
+    }
+	
 }

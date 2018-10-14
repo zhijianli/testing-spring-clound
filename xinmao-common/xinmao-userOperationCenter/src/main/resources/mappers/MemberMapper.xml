@@ -171,6 +171,16 @@
     profile
   </sql>
  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from member
+    where mid = #{mid,jdbcType=BIGINT}
+    and is_delete = 0
+  </select>
+ 
   <insert id="insertSelective" keyProperty="mid" parameterType="com.xinmao.common.userCenter.domain.Member" useGeneratedKeys="true">
     <!--
       WARNING - @mbggenerated

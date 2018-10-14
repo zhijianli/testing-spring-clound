@@ -82,8 +82,10 @@ public class TestScaleOrderController implements TestScaleOrderApi{
 
     
     @RequestMapping(value="/completeTest",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-    public Object completeTest(TestScaleOrderMessage testScaleOrderMessage,String mwHeadimgurl){
+    public Object completeTest(TestScaleOrderMessage testScaleOrderMessage,String mwHeadimgurl,HttpServletResponse response){
 
+    	response.addHeader("Access-Control-Allow-Origin", "*");
+    	
     	ResultEntity result = new ResultEntity(); 
     	
     	try{
