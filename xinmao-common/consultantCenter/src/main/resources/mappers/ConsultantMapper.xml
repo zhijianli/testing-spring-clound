@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xinmao.common.consultantCenter.mapper.ConsultantMapper">
+  <resultMap id="BaseResultMap" type="com.xinmao.common.consultantCenter.domain.Consultant">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="head_portrait_url" jdbcType="VARCHAR" property="headPortraitUrl" />
+    <result column="consultation_method" jdbcType="INTEGER" property="consultationMethod" />
+    <result column="experience_of_training" jdbcType="VARCHAR" property="experienceOfTraining" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="is_top" jdbcType="INTEGER" property="isTop" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, telephone, price, head_portrait_url, consultation_method, experience_of_training, 
+    province, city, is_top, is_delete, gmt_create, gmt_update
+  </sql>
+  <select id="getAllMessageByCondition" parameterType="com.xinmao.common.consultantCenter.domain.Consultant" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from consultant
+    where is_delete = 0
+  </select>
+  <!--<insert id="insertSelective" parameterType="com.itheima.mybatis.po.Consultant">-->
+    <!--insert into consultant-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+      <!--<if test="id != null">-->
+        <!--id,-->
+      <!--</if>-->
+      <!--<if test="name != null">-->
+        <!--name,-->
+      <!--</if>-->
+      <!--<if test="telephone != null">-->
+        <!--telephone,-->
+      <!--</if>-->
+      <!--<if test="price != null">-->
+        <!--price,-->
+      <!--</if>-->
+      <!--<if test="headPortraitUrl != null">-->
+        <!--head_portrait_url,-->
+      <!--</if>-->
+      <!--<if test="consultationMethod != null">-->
+        <!--consultation_method,-->
+      <!--</if>-->
+      <!--<if test="experienceOfTraining != null">-->
+        <!--experience_of_training,-->
+      <!--</if>-->
+      <!--<if test="province != null">-->
+        <!--province,-->
+      <!--</if>-->
+      <!--<if test="city != null">-->
+        <!--city,-->
+      <!--</if>-->
+      <!--<if test="isTop != null">-->
+        <!--is_top,-->
+      <!--</if>-->
+      <!--<if test="isDelete != null">-->
+        <!--is_delete,-->
+      <!--</if>-->
+      <!--<if test="gmtCreate != null">-->
+        <!--gmt_create,-->
+      <!--</if>-->
+      <!--<if test="gmtUpdate != null">-->
+        <!--gmt_update,-->
+      <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+      <!--<if test="id != null">-->
+        <!--#{id,jdbcType=BIGINT},-->
+      <!--</if>-->
+      <!--<if test="name != null">-->
+        <!--#{name,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="telephone != null">-->
+        <!--#{telephone,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="price != null">-->
+        <!--#{price,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="headPortraitUrl != null">-->
+        <!--#{headPortraitUrl,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="consultationMethod != null">-->
+        <!--#{consultationMethod,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="experienceOfTraining != null">-->
+        <!--#{experienceOfTraining,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="province != null">-->
+        <!--#{province,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="city != null">-->
+        <!--#{city,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="isTop != null">-->
+        <!--#{isTop,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="isDelete != null">-->
+        <!--#{isDelete,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="gmtCreate != null">-->
+        <!--#{gmtCreate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="gmtUpdate != null">-->
+        <!--#{gmtUpdate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+    <!--</trim>-->
+  <!--</insert>-->
+  <!--<update id="updateByExampleSelective" parameterType="map">-->
+    <!--update consultant-->
+    <!--<set>-->
+      <!--<if test="record.id != null">-->
+        <!--id = #{record.id,jdbcType=BIGINT},-->
+      <!--</if>-->
+      <!--<if test="record.name != null">-->
+        <!--name = #{record.name,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.telephone != null">-->
+        <!--telephone = #{record.telephone,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.price != null">-->
+        <!--price = #{record.price,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="record.headPortraitUrl != null">-->
+        <!--head_portrait_url = #{record.headPortraitUrl,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.consultationMethod != null">-->
+        <!--consultation_method = #{record.consultationMethod,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="record.experienceOfTraining != null">-->
+        <!--experience_of_training = #{record.experienceOfTraining,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.province != null">-->
+        <!--province = #{record.province,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.city != null">-->
+        <!--city = #{record.city,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.isTop != null">-->
+        <!--is_top = #{record.isTop,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="record.isDelete != null">-->
+        <!--is_delete = #{record.isDelete,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="record.gmtCreate != null">-->
+        <!--gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="record.gmtUpdate != null">-->
+        <!--gmt_update = #{record.gmtUpdate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--<if test="_parameter != null">-->
+      <!--<include refid="Update_By_Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</update>-->
+</mapper>
