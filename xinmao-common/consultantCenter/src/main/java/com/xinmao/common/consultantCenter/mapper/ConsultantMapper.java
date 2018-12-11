@@ -11,9 +11,14 @@ import java.util.List;
  */
 public interface ConsultantMapper {
 
-    int insert(Consultant record);
+
+    Consultant getConsultantById(Long id);
 
     List<Consultant> getAllMessageByCondition(Consultant consultant);
+
+    int selectCount(Consultant consultant);
+
+    int insertOrUpdateConsultant(Consultant consultant);
 
 //    int updateByExampleSelective(@Param("record") Consultant record, @Param("example") ConsultantExample example);
 //

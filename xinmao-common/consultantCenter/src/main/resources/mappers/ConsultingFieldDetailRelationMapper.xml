@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xinmao.common.consultantCenter.mapper.ConsultingFieldDetailRelationMapper">
+  <resultMap id="BaseResultMap" type="com.xinmao.common.consultantCenter.domain.ConsultantConsultingFieldDetailRelation">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="consultant_id" jdbcType="BIGINT" property="consultantId" />
+    <result column="consulting_field_detail_id" jdbcType="BIGINT" property="consultingFieldDetailId" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, consultant_id, consulting_field_detail_id, is_delete, gmt_create, gmt_update
+  </sql>
+  <!--<select id="selectByExample" parameterType="com.itheima.mybatis.po.ConsultantConsultingFieldDetailRelationExample" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--<if test="distinct">-->
+      <!--distinct-->
+    <!--</if>-->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from consultant_consulting_field_detail_relation-->
+    <!--<if test="_parameter != null">-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+    <!--<if test="orderByClause != null">-->
+      <!--order by ${orderByClause}-->
+    <!--</if>-->
+  <!--</select>-->
+  <!--<delete id="deleteByExample" parameterType="com.itheima.mybatis.po.ConsultantConsultingFieldDetailRelationExample">-->
+    <!--delete from consultant_consulting_field_detail_relation-->
+    <!--<if test="_parameter != null">-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</delete>-->
+  <!--<insert id="insert" parameterType="com.itheima.mybatis.po.ConsultantConsultingFieldDetailRelation">-->
+    <!--insert into consultant_consulting_field_detail_relation (id, consultant_id, consulting_field_detail_id, -->
+      <!--is_delete, gmt_create, gmt_update-->
+      <!--)-->
+    <!--values (#{id,jdbcType=BIGINT}, #{consultantId,jdbcType=BIGINT}, #{consultingFieldDetailId,jdbcType=BIGINT}, -->
+      <!--#{isDelete,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}-->
+      <!--)-->
+  <!--</insert>-->
+  <!--<insert id="insertSelective" parameterType="com.itheima.mybatis.po.ConsultantConsultingFieldDetailRelation">-->
+    <!--insert into consultant_consulting_field_detail_relation-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+      <!--<if test="id != null">-->
+        <!--id,-->
+      <!--</if>-->
+      <!--<if test="consultantId != null">-->
+        <!--consultant_id,-->
+      <!--</if>-->
+      <!--<if test="consultingFieldDetailId != null">-->
+        <!--consulting_field_detail_id,-->
+      <!--</if>-->
+      <!--<if test="isDelete != null">-->
+        <!--is_delete,-->
+      <!--</if>-->
+      <!--<if test="gmtCreate != null">-->
+        <!--gmt_create,-->
+      <!--</if>-->
+      <!--<if test="gmtUpdate != null">-->
+        <!--gmt_update,-->
+      <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+      <!--<if test="id != null">-->
+        <!--#{id,jdbcType=BIGINT},-->
+      <!--</if>-->
+      <!--<if test="consultantId != null">-->
+        <!--#{consultantId,jdbcType=BIGINT},-->
+      <!--</if>-->
+      <!--<if test="consultingFieldDetailId != null">-->
+        <!--#{consultingFieldDetailId,jdbcType=BIGINT},-->
+      <!--</if>-->
+      <!--<if test="isDelete != null">-->
+        <!--#{isDelete,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="gmtCreate != null">-->
+        <!--#{gmtCreate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="gmtUpdate != null">-->
+        <!--#{gmtUpdate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+    <!--</trim>-->
+  <!--</insert>-->
+  <!--<select id="countByExample" parameterType="com.itheima.mybatis.po.ConsultantConsultingFieldDetailRelationExample" resultType="java.lang.Long">-->
+    <!--select count(*) from consultant_consulting_field_detail_relation-->
+    <!--<if test="_parameter != null">-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</select>-->
+  <!--<update id="updateByExampleSelective" parameterType="map">-->
+    <!--update consultant_consulting_field_detail_relation-->
+    <!--<set>-->
+      <!--<if test="record.id != null">-->
+        <!--id = #{record.id,jdbcType=BIGINT},-->
+      <!--</if>-->
+      <!--<if test="record.consultantId != null">-->
+        <!--consultant_id = #{record.consultantId,jdbcType=BIGINT},-->
+      <!--</if>-->
+      <!--<if test="record.consultingFieldDetailId != null">-->
+        <!--consulting_field_detail_id = #{record.consultingFieldDetailId,jdbcType=BIGINT},-->
+      <!--</if>-->
+      <!--<if test="record.isDelete != null">-->
+        <!--is_delete = #{record.isDelete,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="record.gmtCreate != null">-->
+        <!--gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="record.gmtUpdate != null">-->
+        <!--gmt_update = #{record.gmtUpdate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--<if test="_parameter != null">-->
+      <!--<include refid="Update_By_Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</update>-->
+  <!--<update id="updateByExample" parameterType="map">-->
+    <!--update consultant_consulting_field_detail_relation-->
+    <!--set id = #{record.id,jdbcType=BIGINT},-->
+      <!--consultant_id = #{record.consultantId,jdbcType=BIGINT},-->
+      <!--consulting_field_detail_id = #{record.consultingFieldDetailId,jdbcType=BIGINT},-->
+      <!--is_delete = #{record.isDelete,jdbcType=INTEGER},-->
+      <!--gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},-->
+      <!--gmt_update = #{record.gmtUpdate,jdbcType=TIMESTAMP}-->
+    <!--<if test="_parameter != null">-->
+      <!--<include refid="Update_By_Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</update>-->
+</mapper>

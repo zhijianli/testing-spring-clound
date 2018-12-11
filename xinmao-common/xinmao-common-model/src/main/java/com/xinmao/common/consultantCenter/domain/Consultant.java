@@ -1,5 +1,7 @@
 package com.xinmao.common.consultantCenter.domain;
 
+import com.xinmao.common.entity.Page;
+
 import java.util.Date;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Date;
  * @time 2018.11.18
  * @author 李志坚
  */
-public class Consultant {
+public class Consultant extends Page{
     private Long id;
 
     private String name;
@@ -33,6 +35,12 @@ public class Consultant {
     private Date gmtCreate;
 
     private Date gmtUpdate;
+
+    private int count;
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public Long getId() {
         return id;

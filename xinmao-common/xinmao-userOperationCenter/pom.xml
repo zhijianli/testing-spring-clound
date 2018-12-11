@@ -64,7 +64,7 @@
 			
 	</plugins>
  
- <!--    在本地调试的话，需要把<resources/>这一块注释掉      --> 
+ <!--    在本地调试的话，需要把<resources/>这一块注释掉
 	<resources>
 		<resource>
 		<directory>lib</directory>
@@ -79,7 +79,7 @@
 		  <targetPath>BOOT-INF/classes/</targetPath>
 		 </resource>
     </resources> 
-
+-->
 
 </build>
 

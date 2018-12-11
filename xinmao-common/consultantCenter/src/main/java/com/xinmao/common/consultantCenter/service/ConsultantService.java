@@ -2,8 +2,6 @@ package com.xinmao.common.consultantCenter.service;
 
 import com.xinmao.common.consultantCenter.domain.Consultant;
 import com.xinmao.common.consultantCenter.mapper.ConsultantMapper;
-import com.xinmao.common.consultantCenter.mapper.MemberMapper;
-import com.xinmao.common.consultantCenter.mapper.MemberWechatMapper;
 import com.xinmao.common.userCenter.domain.Member;
 import com.xinmao.common.userCenter.domain.wechat.MemberWechat;
 import com.xinmao.common.userCenter.domain.wechat.UserWeiXin;
@@ -26,7 +24,22 @@ public class ConsultantService {
 
 //	public static int WECHAT_OPEN = 0; //开放平台
 
+
+    public Consultant getConsultantById(Long id) {
+        return consultantMapper.getConsultantById(id);
+    }
+
     public List<Consultant> getAllMessageByCondition(Consultant consultant) {
         return consultantMapper.getAllMessageByCondition(consultant);
     }
+
+    public int selectCount(Consultant consultant) {
+        return consultantMapper.selectCount(consultant);
+    }
+
+    public int insertOrUpdateConsultant(Consultant consultant) {
+        return consultantMapper.insertOrUpdateConsultant(consultant);
+    }
+
+
 }

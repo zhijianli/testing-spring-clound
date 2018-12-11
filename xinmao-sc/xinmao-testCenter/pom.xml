@@ -52,7 +52,6 @@
 	  <scope>system</scope>
       <systemPath>${project.basedir}/lib/aliyun-sdk-oss.jar</systemPath>
 	</dependency>
-		
 	</dependencies>
 
 <build>
@@ -88,7 +87,7 @@
 		</plugin> 
 	</plugins>
 	 
-   <!--  在本地调试的话，需要把<resources/>这一块注释掉 -->
+   <!--  在本地调试的话，需要把<resources/>这一块注释掉
 	<resources>
 		<resource>
 		<directory>lib</directory>
@@ -104,7 +103,7 @@
 		 </resource>
     </resources>  
 
-	  
+	   -->
 </build>
 
 
