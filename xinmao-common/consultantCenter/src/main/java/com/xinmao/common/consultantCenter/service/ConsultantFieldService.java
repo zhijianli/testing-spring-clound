@@ -1,5 +1,6 @@
 package com.xinmao.common.consultantCenter.service;
 
+import com.xinmao.common.consultantCenter.domain.Consultant;
 import com.xinmao.common.consultantCenter.mapper.ConsultingFieldMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.xinmao.common.consultantCenter.domain.ConsultingField;
@@ -18,9 +19,22 @@ public class ConsultantFieldService {
 	@Autowired
     ConsultingFieldMapper consultantFieldMapper;
 
-//	public static int WECHAT_OPEN = 0; //开放平台
+
+    public ConsultingField getConsultingFieldById(Long id) {
+        return consultantFieldMapper.getConsultingFieldById(id);
+    }
 
     public List<ConsultingField> getAllMessageByCondition(ConsultingField consultingField) {
         return consultantFieldMapper.getAllMessageByCondition(consultingField);
     }
+
+    public int selectCount(ConsultingField consultingField) {
+        return consultantFieldMapper.selectCount(consultingField);
+    }
+
+    public int insertOrUpdateConsultantField(ConsultingField consultingField) {
+        return consultantFieldMapper.insertOrUpdateConsultantField(consultingField);
+    }
+
+
 }

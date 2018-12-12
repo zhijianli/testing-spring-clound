@@ -12,12 +12,102 @@
     id, name, is_delete, gmt_create, gmt_update
   </sql>
 
+  <select id="getConsultingFieldById" parameterType="com.xinmao.common.consultantCenter.domain.ConsultingField" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from consulting_field
+    where
+    is_delete = 0
+    and id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectCount" parameterType="com.xinmao.common.consultantCenter.domain.ConsultingField" resultType="Integer">
+    select count(*)
+    from consulting_field
+    <where>
+      is_delete = 0
+      <!--<if test="name != null and name != ''">-->
+        <!--and name =  #{name,jdbcType=VARCHAR}-->
+      <!--</if>-->
+    </where>
+  </select>
+
   <select id="getAllMessageByCondition" parameterType="com.xinmao.common.consultantCenter.domain.ConsultingField" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from consulting_field
     where is_delete = 0
+    order by gmt_update desc
   </select>
+
+
+  <insert id="insertOrUpdateConsultantField" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.common.consultantCenter.domain.ConsultingField" >
+
+    <!-- 查看是否存在memberid,如果存在及更新，否则插入 -->
+    <selectKey keyProperty="count" order="BEFORE" resultType="int">
+      select count(*) as count from consulting_field
+      where id = #{id,jdbcType=BIGINT}
+    </selectKey>
+
+    <!-- 如果大于0则更新 -->
+    <if test="count>0">
+      update consulting_field
+      <set>
+        <if test="id != null">
+          id = #{id,jdbcType=BIGINT},
+        </if>
+        <if test="name != null">
+          name = #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="isDelete != null">
+          is_delete = #{isDelete,jdbcType=INTEGER},
+        </if>
+        <if test="gmtCreate != null">
+          gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="gmtUpdate != null">
+          gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where id = #{id,jdbcType=BIGINT}
+    </if>
+
+    <!-- 如果等于0则保存 -->
+    <if test="count==0">
+      insert into consulting_field
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="name != null">
+          name,
+        </if>
+        <if test="isDelete != null">
+          is_delete,
+        </if>
+        <if test="gmtCreate != null">
+          gmt_create,
+        </if>
+        <if test="gmtUpdate != null">
+          gmt_update,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="name != null">
+          #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="isDelete != null">
+          #{isDelete,jdbcType=INTEGER},
+        </if>
+        <if test="gmtCreate != null">
+          #{gmtCreate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="gmtUpdate != null">
+          #{gmtUpdate,jdbcType=TIMESTAMP},
+        </if>
+      </trim>
+    </if>
+
+  </insert>
+
+
   <!--<select id="selectByExample" parameterType="com.itheima.mybatis.po.ConsultingFieldExample" resultMap="BaseResultMap">-->
     <!--select-->
     <!--<if test="distinct">-->

@@ -124,7 +124,7 @@ public class ConsultantController{
     }
 
     /**
-     * @Description: 添加咨询师
+     * @Description: 添加/编辑咨询师
      * @Author: 李志坚
      * @Date: 2018/12/11
      */
@@ -159,5 +159,41 @@ public class ConsultantController{
         result.setMsg(ErrorCode.SUCCESS.getMessage());
         return result;
     }
+
+    /**
+     * @Description: 删除咨询师
+     * @Author: 李志坚
+     * @Date: 2018/12/12
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/deleteConsultant")
+    @ResponseBody
+    public Object deleteConsultant(Consultant consultant,HttpServletResponse response) {
+
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        ResultEntity result = new ResultEntity();
+
+        try {
+            Date currentTime = new Date();
+            consultant.setIsDelete(-1);
+            consultant.setGmtUpdate(currentTime);
+            int insertNum = consultantService.insertOrUpdateConsultant(consultant);
+
+            if(insertNum<=0){
+                result.setCode(ErrorCode.ERROR_PARAM_INCOMPLETE.getCode());
+                result.setMsg(ErrorCode.ERROR_PARAM_INCOMPLETE.getMessage());
+                return result;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setCode(ResultEntity.ERROR);
+            result.setError("系统错误");
+            return result;
+        }
+        result.setCode(ErrorCode.SUCCESS.getCode());
+        result.setMsg(ErrorCode.SUCCESS.getMessage());
+        return result;
+    }
+
 }
 

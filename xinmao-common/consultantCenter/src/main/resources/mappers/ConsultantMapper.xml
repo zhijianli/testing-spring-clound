@@ -62,12 +62,6 @@
   </select>
 
 
-  <insert id="addConsultant" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.common.consultantCenter.domain.Consultant">
-
-  </insert>
-
-
-
   <insert id="insertOrUpdateConsultant" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.common.consultantCenter.domain.Consultant" >
 
     <!-- 查看是否存在memberid,如果存在及更新，否则插入 -->
