@@ -14,6 +14,8 @@ public class ConsultingField  extends Page{
 
     private String name;
 
+    private String consultingFieldDetailStr;
+
     private Integer isDelete;
 
     private Date gmtCreate;
@@ -24,6 +26,14 @@ public class ConsultingField  extends Page{
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getConsultingFieldDetailStr() {
+        return consultingFieldDetailStr;
+    }
+
+    public void setConsultingFieldDetailStr(String consultingFieldDetailStr) {
+        this.consultingFieldDetailStr = consultingFieldDetailStr;
     }
 
     public Long getId() {

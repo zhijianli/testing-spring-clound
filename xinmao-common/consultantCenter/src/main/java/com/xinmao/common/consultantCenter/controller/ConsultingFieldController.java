@@ -6,6 +6,8 @@ import com.xinmao.common.consultantCenter.domain.ConsultingField;
 import com.xinmao.common.consultantCenter.service.ConsultantFieldService;
 import com.xinmao.common.entity.ErrorCode;
 import com.xinmao.common.entity.ResultEntity;
+import freemarker.template.utility.StringUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -127,15 +129,14 @@ public class ConsultingFieldController {
 
         response.addHeader("Access-Control-Allow-Origin", "*");
         ResultEntity result = new ResultEntity();
-
         try {
             Date currentTime = new Date();
             consultantField.setIsDelete(0);
             consultantField.setGmtCreate(currentTime);
             consultantField.setGmtUpdate(currentTime);
-            int insertNum = consultantFieldService.insertOrUpdateConsultantField(consultantField);
+            long consultantFieldId = consultantFieldService.insertOrUpdateConsultantField(consultantField);
 
-            if(insertNum<=0){
+            if(consultantFieldId<=0){
                 result.setCode(ErrorCode.ERROR_PARAM_INCOMPLETE.getCode());
                 result.setMsg(ErrorCode.ERROR_PARAM_INCOMPLETE.getMessage());
                 return result;
@@ -165,16 +166,15 @@ public class ConsultingFieldController {
         ResultEntity result = new ResultEntity();
 
         try {
-            Date currentTime = new Date();
-            consultantField.setIsDelete(-1);
-            consultantField.setGmtUpdate(currentTime);
-            int insertNum = consultantFieldService.insertOrUpdateConsultantField(consultantField);
 
-            if(insertNum<=0){
+            Long id = consultantField.getId();
+            if(id==null || id==0){
                 result.setCode(ErrorCode.ERROR_PARAM_INCOMPLETE.getCode());
                 result.setMsg(ErrorCode.ERROR_PARAM_INCOMPLETE.getMessage());
                 return result;
             }
+
+            consultantFieldService.deleteConsultingField(consultantField);
 
         } catch (Exception e) {
             e.printStackTrace();

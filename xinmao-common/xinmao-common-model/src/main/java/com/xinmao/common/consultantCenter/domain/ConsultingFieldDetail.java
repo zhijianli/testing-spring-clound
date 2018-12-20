@@ -8,6 +8,9 @@ import java.util.Date;
  * @author 李志坚
  */
 public class ConsultingFieldDetail {
+
+    public final static String SEPARATOR = "-";
+
     private Long id;
 
     private String name;
@@ -19,6 +22,12 @@ public class ConsultingFieldDetail {
     private Date gmtCreate;
 
     private Date gmtUpdate;
+
+    private int count;
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public Long getId() {
         return id;

@@ -1,5 +1,6 @@
 package com.xinmao.common.consultantCenter.mapper;
 
+import com.xinmao.common.consultantCenter.domain.ConsultingFieldDetail;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -10,4 +11,11 @@ import java.util.List;
  * @author 李志坚
  */
 public interface ConsultingFieldDetailMapper {
+
+    void deleteConsultantFieldDetail(ConsultingFieldDetail consultingFieldDetail);
+
+    int insertOrUpdateConsultantFieldDetail(ConsultingFieldDetail consultingFieldDetail);
+
+    List<ConsultingFieldDetail> getCfdListByCondition(ConsultingFieldDetail consultingFieldDetail);
+
 }

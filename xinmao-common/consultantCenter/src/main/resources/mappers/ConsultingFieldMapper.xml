@@ -12,6 +12,12 @@
     id, name, is_delete, gmt_create, gmt_update
   </sql>
 
+  <select id="getConsultantFieldId" parameterType="com.xinmao.common.consultantCenter.domain.ConsultingField" resultType="Long">
+      select id from consulting_field
+      where
+      name = #{name,jdbcType=VARCHAR}
+  </select>
+
   <select id="getConsultingFieldById" parameterType="com.xinmao.common.consultantCenter.domain.ConsultingField" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -39,6 +45,15 @@
     where is_delete = 0
     order by gmt_update desc
   </select>
+
+  <update id="deleteConsultingField" parameterType="com.xinmao.common.consultantCenter.domain.ConsultingField">
+        update consulting_field
+        set
+            is_delete= -1,
+            gmt_update=#{gmtUpdate,jdbcType=TIMESTAMP}
+        where
+            id = #{id,jdbcType=BIGINT}
+  </update>
 
 
   <insert id="insertOrUpdateConsultantField" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinmao.common.consultantCenter.domain.ConsultingField" >

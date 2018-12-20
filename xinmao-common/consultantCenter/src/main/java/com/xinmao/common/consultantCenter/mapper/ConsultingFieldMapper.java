@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface ConsultingFieldMapper {
 
+    void deleteConsultingField(ConsultingField consultingField);
+
     ConsultingField getConsultingFieldById(Long id);
 
     List<ConsultingField> getAllMessageByCondition(ConsultingField consultingField);
@@ -20,5 +22,7 @@ public interface ConsultingFieldMapper {
     int selectCount(ConsultingField consultingField);
 
     int insertOrUpdateConsultantField(ConsultingField consultingField);
+
+    Long getConsultantFieldId(ConsultingField consultingField);
 
 }
