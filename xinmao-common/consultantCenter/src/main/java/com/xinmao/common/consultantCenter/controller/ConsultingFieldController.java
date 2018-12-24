@@ -36,6 +36,35 @@ public class ConsultingFieldController {
      private ConsultantFieldService consultantFieldService;
 
 
+    /**
+     * @Description: 获取咨询领域和咨询领域详情
+     * @Author: 李志坚
+     * @Date: 2018/12/24
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/getConsultantFieldAndDetail")
+    @ResponseBody
+    public Object getConsultantFieldAndDetail(HttpServletResponse response) {
+
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        ResultEntity result = new ResultEntity();
+        List<ConsultingField> consultingFieldList = new ArrayList<ConsultingField>();
+
+        try {
+
+            consultingFieldList = consultantFieldService.getConsultantFieldAndDetail();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setCode(ResultEntity.ERROR);
+            result.setError("系统错误");
+            return result;
+        }
+        result.put("consultingFieldList", consultingFieldList);
+        result.setCode(ErrorCode.SUCCESS.getCode());
+        result.setMsg(ErrorCode.SUCCESS.getMessage());
+        return result;
+    }
+
 
     /**
      * @Description: 根据id获取咨询领域

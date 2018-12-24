@@ -3,6 +3,7 @@ package com.xinmao.common.consultantCenter.domain;
 import com.xinmao.common.entity.Page;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 咨询领域DO
@@ -22,10 +23,20 @@ public class ConsultingField  extends Page{
 
     private Date gmtUpdate;
 
+    private List<ConsultingFieldDetail> consultingFieldDetailList;
+
     private int count;
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public List<ConsultingFieldDetail> getConsultingFieldDetailList() {
+        return consultingFieldDetailList;
+    }
+
+    public void setConsultingFieldDetailList(List<ConsultingFieldDetail> consultingFieldDetailList) {
+        this.consultingFieldDetailList = consultingFieldDetailList;
     }
 
     public String getConsultingFieldDetailStr() {

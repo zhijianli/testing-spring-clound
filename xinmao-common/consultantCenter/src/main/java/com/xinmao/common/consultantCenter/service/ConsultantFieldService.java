@@ -25,6 +25,21 @@ public class ConsultantFieldService {
     @Autowired
     ConsultingFieldDetailMapper consultingFieldDetailMapper;
 
+    public List<ConsultingField> getConsultantFieldAndDetail(){
+        ConsultingField consultingField = new ConsultingField();
+        List<ConsultingField>  cfList = consultantFieldMapper.getAllMessageByCondition(consultingField);
+        if(cfList!=null && cfList.size()>0){
+            for(int i=0;i<cfList.size();i++){
+                ConsultingField cf = cfList.get(i);
+                ConsultingFieldDetail consultingFieldDetail = new ConsultingFieldDetail();
+                consultingFieldDetail.setConsultingFieldId(cf.getId());
+                List<ConsultingFieldDetail>  cfdList = consultingFieldDetailMapper.getCfdListByCondition(consultingFieldDetail);
+                cf.setConsultingFieldDetailList(cfdList);
+            }
+        }
+        return cfList;
+    }
+
     public void deleteConsultingField(ConsultingField consultingField) {
         Date currentTime = new Date();
         consultingField.setGmtUpdate(currentTime);
