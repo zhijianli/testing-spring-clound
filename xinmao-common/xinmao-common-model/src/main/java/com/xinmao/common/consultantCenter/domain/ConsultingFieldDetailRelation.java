@@ -7,7 +7,7 @@ import java.util.Date;
  * @time 2018.11.18
  * @author 李志坚
  */
-public class ConsultantConsultingFieldDetailRelation {
+public class ConsultingFieldDetailRelation {
     private Long id;
 
     private Long consultantId;
@@ -19,6 +19,12 @@ public class ConsultantConsultingFieldDetailRelation {
     private Date gmtCreate;
 
     private Date gmtUpdate;
+
+    private int count;
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public Long getId() {
         return id;

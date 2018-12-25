@@ -43,15 +43,14 @@ public class ConsultingFieldController {
      */
     @RequestMapping(method = RequestMethod.POST, value = "/getConsultantFieldAndDetail")
     @ResponseBody
-    public Object getConsultantFieldAndDetail(HttpServletResponse response) {
+    public Object getConsultantFieldAndDetail(HttpServletResponse response,Long consultantId) {
 
         response.addHeader("Access-Control-Allow-Origin", "*");
         ResultEntity result = new ResultEntity();
         List<ConsultingField> consultingFieldList = new ArrayList<ConsultingField>();
 
         try {
-
-            consultingFieldList = consultantFieldService.getConsultantFieldAndDetail();
+            consultingFieldList = consultantFieldService.getConsultantFieldAndDetail(consultantId);
 
         } catch (Exception e) {
             e.printStackTrace();

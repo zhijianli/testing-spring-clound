@@ -141,13 +141,7 @@ public class ConsultantController{
             consultant.setIsTop(0);
             consultant.setGmtCreate(currentTime);
             consultant.setGmtUpdate(currentTime);
-            int insertNum = consultantService.insertOrUpdateConsultant(consultant);
-
-            if(insertNum<=0){
-                result.setCode(ErrorCode.ERROR_PARAM_INCOMPLETE.getCode());
-                result.setMsg(ErrorCode.ERROR_PARAM_INCOMPLETE.getMessage());
-                return result;
-            }
+            consultantService.insertOrUpdateConsultant(consultant);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -173,16 +167,20 @@ public class ConsultantController{
         ResultEntity result = new ResultEntity();
 
         try {
-            Date currentTime = new Date();
-            consultant.setIsDelete(-1);
-            consultant.setGmtUpdate(currentTime);
-            int insertNum = consultantService.insertOrUpdateConsultant(consultant);
-
-            if(insertNum<=0){
+            Long id = consultant.getId();
+            if(id==null || id==0){
                 result.setCode(ErrorCode.ERROR_PARAM_INCOMPLETE.getCode());
                 result.setMsg(ErrorCode.ERROR_PARAM_INCOMPLETE.getMessage());
                 return result;
             }
+
+            consultantService.deleteConsultant(consultant);
+//
+//            if(insertNum<=0){
+//                result.setCode(ErrorCode.ERROR_PARAM_INCOMPLETE.getCode());
+//                result.setMsg(ErrorCode.ERROR_PARAM_INCOMPLETE.getMessage());
+//                return result;
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();

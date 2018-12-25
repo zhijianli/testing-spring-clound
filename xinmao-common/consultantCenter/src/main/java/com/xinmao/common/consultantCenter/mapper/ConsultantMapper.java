@@ -11,12 +11,17 @@ import java.util.List;
  */
 public interface ConsultantMapper {
 
-
     Consultant getConsultantById(Long id);
 
     List<Consultant> getAllMessageByCondition(Consultant consultant);
 
     int selectCount(Consultant consultant);
+
+    void deleteConsultant(Consultant consultant);
+
+    void insertConsultant(Consultant consultant);
+
+    void updateConsultant(Consultant consultant);
 
     int insertOrUpdateConsultant(Consultant consultant);
 

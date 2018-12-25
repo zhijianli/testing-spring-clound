@@ -1,8 +1,9 @@
 package com.xinmao.common.consultantCenter.service;
 
-import com.xinmao.common.consultantCenter.domain.Consultant;
+import com.xinmao.common.consultantCenter.domain.ConsultingFieldDetailRelation;
 import com.xinmao.common.consultantCenter.domain.ConsultingFieldDetail;
 import com.xinmao.common.consultantCenter.mapper.ConsultingFieldDetailMapper;
+import com.xinmao.common.consultantCenter.mapper.ConsultingFieldDetailRelationMapper;
 import com.xinmao.common.consultantCenter.mapper.ConsultingFieldMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.xinmao.common.consultantCenter.domain.ConsultingField;
@@ -25,15 +26,36 @@ public class ConsultantFieldService {
     @Autowired
     ConsultingFieldDetailMapper consultingFieldDetailMapper;
 
-    public List<ConsultingField> getConsultantFieldAndDetail(){
+    @Autowired
+    ConsultingFieldDetailRelationMapper consultingFieldDetailRelationMapper;
+
+    public List<ConsultingField> getConsultantFieldAndDetail(Long consultantId){
         ConsultingField consultingField = new ConsultingField();
         List<ConsultingField>  cfList = consultantFieldMapper.getAllMessageByCondition(consultingField);
         if(cfList!=null && cfList.size()>0){
             for(int i=0;i<cfList.size();i++){
+
+                //获取咨询领域详情
                 ConsultingField cf = cfList.get(i);
                 ConsultingFieldDetail consultingFieldDetail = new ConsultingFieldDetail();
                 consultingFieldDetail.setConsultingFieldId(cf.getId());
                 List<ConsultingFieldDetail>  cfdList = consultingFieldDetailMapper.getCfdListByCondition(consultingFieldDetail);
+
+                //判断该领域详情是否已被选中
+                if(consultantId!=null && consultantId > 0){
+                    ConsultingFieldDetailRelation cfdr = new ConsultingFieldDetailRelation();
+                    cfdr.setConsultantId(consultantId);
+                    List<Long> consultingFieldDetailIdList = consultingFieldDetailRelationMapper.getConsultingFieldDetailIdList(cfdr);
+                    if(cfdList!=null && cfdList.size()>0  && consultingFieldDetailIdList !=null && consultingFieldDetailIdList.size()>0){
+                        for(int j=0;j<cfdList.size();j++){
+                            ConsultingFieldDetail cfd = cfdList.get(j);
+                            if(consultingFieldDetailIdList.contains(cfd.getId())){
+                                cfd.setChecked(true);
+                            }
+                        }
+                    }
+                }
+
                 cf.setConsultingFieldDetailList(cfdList);
             }
         }

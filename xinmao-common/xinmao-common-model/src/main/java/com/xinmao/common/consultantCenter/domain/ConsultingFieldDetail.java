@@ -17,6 +17,8 @@ public class ConsultingFieldDetail {
 
     private Long consultingFieldId;
 
+    private Boolean isChecked;
+
     private Integer isDelete;
 
     private Date gmtCreate;
@@ -27,6 +29,14 @@ public class ConsultingFieldDetail {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public Boolean getChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(Boolean checked) {
+        isChecked = checked;
     }
 
     public Long getId() {

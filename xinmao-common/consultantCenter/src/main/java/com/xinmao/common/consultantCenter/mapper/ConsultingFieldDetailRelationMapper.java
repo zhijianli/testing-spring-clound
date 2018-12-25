@@ -1,6 +1,6 @@
 package com.xinmao.common.consultantCenter.mapper;
 
-import org.apache.ibatis.annotations.Param;
+import com.xinmao.common.consultantCenter.domain.ConsultingFieldDetailRelation;
 
 import java.util.List;
 
@@ -10,5 +10,11 @@ import java.util.List;
  * @author 李志坚
  */
 public interface ConsultingFieldDetailRelationMapper {
+
+    int insertOrUpdateRelation(ConsultingFieldDetailRelation consultingFieldDetailRelation);
+
+    List<Long> getConsultingFieldDetailIdList(ConsultingFieldDetailRelation consultingFieldDetailRelation);
+
+    void deleteRelationByConsultantId(ConsultingFieldDetailRelation consultingFieldDetailRelation);
 
 }

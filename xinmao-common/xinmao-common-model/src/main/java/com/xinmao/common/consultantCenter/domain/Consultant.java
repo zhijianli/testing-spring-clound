@@ -3,6 +3,7 @@ package com.xinmao.common.consultantCenter.domain;
 import com.xinmao.common.entity.Page;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 咨询师DO
@@ -10,6 +11,11 @@ import java.util.Date;
  * @author 李志坚
  */
 public class Consultant extends Page{
+
+    public static final String OPERATION_INSERT = "添加";
+
+    public static final String OPERATION_UPDATE = "编辑";
+
     private Long id;
 
     private String name;
@@ -22,11 +28,19 @@ public class Consultant extends Page{
 
     private Integer consultationMethod;
 
+    private String consultationMethodStr;
+
     private String experienceOfTraining;
+
+    private String experienceOfTrainingAbb;
 
     private String province;
 
     private String city;
+
+    private List<Long> checkFieldDetailIdList;
+
+    private String operation;
 
     private Integer isTop;
 
@@ -40,6 +54,38 @@ public class Consultant extends Page{
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getExperienceOfTrainingAbb() {
+        return experienceOfTrainingAbb;
+    }
+
+    public void setExperienceOfTrainingAbb(String experienceOfTrainingAbb) {
+        this.experienceOfTrainingAbb = experienceOfTrainingAbb;
+    }
+
+    public String getConsultationMethodStr() {
+        return consultationMethodStr;
+    }
+
+    public void setConsultationMethodStr(String consultationMethodStr) {
+        this.consultationMethodStr = consultationMethodStr;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
+    }
+
+    public List<Long> getCheckFieldDetailIdList() {
+        return checkFieldDetailIdList;
+    }
+
+    public void setCheckFieldDetailIdList(List<Long> checkFieldDetailIdList) {
+        this.checkFieldDetailIdList = checkFieldDetailIdList;
     }
 
     public Long getId() {
