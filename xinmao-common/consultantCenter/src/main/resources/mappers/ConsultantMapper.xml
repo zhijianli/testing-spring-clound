@@ -58,6 +58,13 @@
     <if test="price != null and price != ''">
       and price =  #{price,jdbcType=INTEGER}
     </if>
+    <if test="consultationMethodList != null and consultationMethodList.size() > 0">
+      and consultation_method in
+      <foreach item="item" index="index" collection="consultationMethodList"
+               open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
     order by gmt_update desc
   </select>
 

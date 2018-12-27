@@ -42,6 +42,8 @@ public class Consultant extends Page{
 
     private String operation;
 
+    private List<Integer> consultationMethodList;
+
     private Integer isTop;
 
     private Integer isDelete;
@@ -54,6 +56,14 @@ public class Consultant extends Page{
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public List<Integer> getConsultationMethodList() {
+        return consultationMethodList;
+    }
+
+    public void setConsultationMethodList(List<Integer> consultationMethodList) {
+        this.consultationMethodList = consultationMethodList;
     }
 
     public String getExperienceOfTrainingAbb() {
