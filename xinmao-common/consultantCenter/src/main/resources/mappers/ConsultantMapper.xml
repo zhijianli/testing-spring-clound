@@ -65,6 +65,12 @@
         #{item}
       </foreach>
     </if>
+    <if test="priceMin != null and priceMin >= 0">
+      and <![CDATA[ price >= #{priceMin,jdbcType=INTEGER} ]]>
+    </if>
+    <if test="priceMax != null and priceMax > 0">
+      and <![CDATA[ price <= #{priceMax,jdbcType=INTEGER} ]]>
+    </if>
     order by gmt_update desc
   </select>
 

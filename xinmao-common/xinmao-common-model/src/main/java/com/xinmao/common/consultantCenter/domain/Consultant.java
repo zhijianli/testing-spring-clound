@@ -44,6 +44,10 @@ public class Consultant extends Page{
 
     private List<Integer> consultationMethodList;
 
+    private Integer priceMin;
+
+    private Integer priceMax;
+
     private Integer isTop;
 
     private Integer isDelete;
@@ -56,6 +60,22 @@ public class Consultant extends Page{
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public Integer getPriceMin() {
+        return priceMin;
+    }
+
+    public void setPriceMin(Integer priceMin) {
+        this.priceMin = priceMin;
+    }
+
+    public Integer getPriceMax() {
+        return priceMax;
+    }
+
+    public void setPriceMax(Integer priceMax) {
+        this.priceMax = priceMax;
     }
 
     public List<Integer> getConsultationMethodList() {
