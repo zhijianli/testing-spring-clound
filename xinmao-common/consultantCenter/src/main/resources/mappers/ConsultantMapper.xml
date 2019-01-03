@@ -71,6 +71,12 @@
     <if test="priceMax != null and priceMax > 0">
       and <![CDATA[ price <= #{priceMax,jdbcType=INTEGER} ]]>
     </if>
+    <if test="province != null and province != ''">
+      and province =  #{province,jdbcType=VARCHAR}
+    </if>
+    <if test="city != null and city != ''">
+      and city =  #{city,jdbcType=VARCHAR}
+    </if>
     order by gmt_update desc
   </select>
 
