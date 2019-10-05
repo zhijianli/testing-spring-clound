@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xinmao.common.util.wechat.SecurityCheckUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 //import org.apache.log4j.Logger;
@@ -46,6 +47,7 @@ import com.xinmao.sc.testCenter.service.TestScalePopulationRangeService;
 import com.xinmao.sc.testCenter.service.TestScaleQualitativeService;
 import com.xinmao.sc.testCenter.service.TestScaleTitleService;
 import com.xinmao.sc.testCenter.api.TestScaleInfoApi;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
@@ -733,7 +735,7 @@ public class TestScaleInfoController implements TestScaleInfoApi{
 		ResultEntity result = new ResultEntity(); 
     	TestScaleInfoMessage testScaleInfoMessage = new TestScaleInfoMessage();   
     	Integer isCollected =CommonCollection.IS_NOT_COLLECTED;
-    	
+
     	try{
 	        Integer testScaleId =Integer.parseInt(request.getParameter("testScaleId"));
 	        if(testScaleId==null || testScaleId==0){

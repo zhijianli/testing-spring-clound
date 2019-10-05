@@ -69,6 +69,7 @@
 
 	<modules>
 		<module>xinmao-bannerCenter</module>
-		<module>xinmao-userCenter</module>
+		<module>xinmao-userOperationCenter</module>
+<!--		<module>xinmao-userCenter</module>-->
 	</modules>
 </project>
