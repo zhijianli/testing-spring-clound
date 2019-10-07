@@ -32,12 +32,10 @@ public class AppTest
 
 
         String accessToken = SecurityCheckUtil.getAccessToken();
-//		String textConetnt = "有违规文字内容测试特3456书yuuo莞6543李zxcz蒜7782法fgnv级";
-//		SecurityCheckUtil.checkText(textConetnt,accessToken);
-
         MultipartFile mfile = SecurityCheckUtil.getMulFileByPath("https://image-testscale.oss-cn-hangzhou.aliyuncs.com/th.jpg");
-
-        SecurityCheckUtil.checkPic(mfile,accessToken);
+        String textConetnt = "有违规文字内容测试特3456书yuuo莞6543李zxcz蒜7782法fgnv级";
+		System.out.println("文字检测接口接口为："+SecurityCheckUtil.checkText(textConetnt,accessToken));
+        System.out.println("图片检测接口接口为："+SecurityCheckUtil.checkPic(mfile,accessToken));
 //        try {
 //            // 下载网络文件
 //            int bytesum = 0;

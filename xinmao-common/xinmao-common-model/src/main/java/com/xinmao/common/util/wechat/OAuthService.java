@@ -82,7 +82,7 @@ public class OAuthService
 	 */
 	public static String getXcxOpenId(String code){
 //		String url = XCX_OAUTH.replace("APPID", XCXAPPID).replace("SECRET", XCXSECRETTEST).replace("CODE", code);
-		String url = XCX_OAUTH.replace("APPID", "wx64e17f58ebba5d24").replace("SECRET", "5ebf51ee4a0d1f0c8fa565f71b194324").replace("CODE", code);
+		String url = XCX_OAUTH.replace("APPID", WechatConstant.APP_ID).replace("SECRET", WechatConstant.APP_SECRET).replace("CODE", code);
 		JSONObject jsonObject = WeixinUtil.httpsRequest(url, "POST", null);
 		String openId = null;
 		if (jsonObject != null){

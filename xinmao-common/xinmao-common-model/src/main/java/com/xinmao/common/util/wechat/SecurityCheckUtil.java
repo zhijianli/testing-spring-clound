@@ -37,13 +37,7 @@ import java.util.UUID;
  * Date: 2019/10/5
  * 微信安全检查工具类
  */
-public class SecurityCheckUtil
-{
-
-	public static String GET_ACCESS_TOKEN_OAUTH = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
-
-	public static String CHECK_TEXT_URL = "https://api.weixin.qq.com/wxa/msg_sec_check?access_token=ACCESSTOKEN";
-
+public class SecurityCheckUtil {
 	/**
 	 *  纯文本拦截敏感词
 	 * @param textConetnt
@@ -52,7 +46,7 @@ public class SecurityCheckUtil
 	public static Boolean checkText(String textConetnt,String accessToken) {
 
 		try {
-			String url = CHECK_TEXT_URL.replace("ACCESSTOKEN", accessToken);
+			String url = WechatConstant.CHECK_TEXT_URL.replace("ACCESSTOKEN", accessToken);
 
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			CloseableHttpResponse response = null;
@@ -70,9 +64,7 @@ public class SecurityCheckUtil
 			String result = EntityUtils.toString(httpEntity, "UTF-8");// 转成string
 			JSONObject jso = JSONObject.parseObject(result);
 
-
 			Object errcode = jso.get("errcode");
-			//int errCode = (int) errcode;
 			int errCode = Integer.parseInt(errcode+"");
 			if (errCode == 0) {
 				return true;
@@ -99,10 +91,10 @@ public class SecurityCheckUtil
 		try {
 
 			CloseableHttpClient httpclient = HttpClients.createDefault();
-
 			CloseableHttpResponse response = null;
 
-			HttpPost request = new HttpPost("https://api.weixin.qq.com/wxa/img_sec_check?access_token=" + accessToken);
+			String url = WechatConstant.CHECK_PIC_URL.replace("ACCESSTOKEN", accessToken);
+			HttpPost request = new HttpPost(url);
 			request.addHeader("Content-Type", "application/octet-stream");
 
 			InputStream inputStream = multipartFile.getInputStream();
@@ -114,12 +106,10 @@ public class SecurityCheckUtil
 			response = httpclient.execute(request);
 			HttpEntity httpEntity = response.getEntity();
 			String result = EntityUtils.toString(httpEntity, "UTF-8");// 转成string
-//			JSONObject jso = JSONObject.parseObject(result);
 			JSONObject jso = JSONObject.parseObject(result);
 			System.out.println(jso + "-------------验证效果");
 
 			Object errcode = jso.get("errcode");
-//			int errCode = (int) errcode;
 			int errCode = Integer.parseInt(errcode+"");
 			if (errCode == 0) {
 				return true;
@@ -146,7 +136,7 @@ public class SecurityCheckUtil
 
 			CloseableHttpResponse response = null;
 
-			String url = GET_ACCESS_TOKEN_OAUTH.replace("APPID", "wx64e17f58ebba5d24").replace("APPSECRET", "5ebf51ee4a0d1f0c8fa565f71b194324");
+			String url = WechatConstant.GET_ACCESS_TOKEN_OAUTH.replace("APPID", WechatConstant.APP_ID).replace("APPSECRET", WechatConstant.APP_SECRET);
 
 			HttpPost request = new HttpPost(url);
 			request.addHeader("Content-Type", "application/json;charset=UTF-8");
@@ -195,37 +185,37 @@ public class SecurityCheckUtil
 
 
 
-	private static FileItem createFileItem(String filePath) {
-
-		FileItemFactory factory = new DiskFileItemFactory(16, null);
-		String textFieldName = "textField";
-		int num = filePath.lastIndexOf(".");
-		String extFile = filePath.substring(num);
-		FileItem item = factory.createItem(textFieldName, "text/plain", true,
-				"MyFileName" + extFile);
-		File newfile = new File(filePath);
-		int bytesRead = 0;
-		byte[] buffer = new byte[4096];
-
-		try {
-			FileInputStream fis = new FileInputStream(newfile);
-			OutputStream os = item.getOutputStream();
-
-			while ((bytesRead = fis.read(buffer, 0, 8192)) != -1) {
-				os.write(buffer, 0, bytesRead);
-			}
-			os.close();
-			fis.close();
-		}
-
-		catch (IOException e)
-
-		{
-			e.printStackTrace();
-		}
-
-		return item;
-
-	}
+//	private static FileItem createFileItem(String filePath) {
+//
+//		FileItemFactory factory = new DiskFileItemFactory(16, null);
+//		String textFieldName = "textField";
+//		int num = filePath.lastIndexOf(".");
+//		String extFile = filePath.substring(num);
+//		FileItem item = factory.createItem(textFieldName, "text/plain", true,
+//				"MyFileName" + extFile);
+//		File newfile = new File(filePath);
+//		int bytesRead = 0;
+//		byte[] buffer = new byte[4096];
+//
+//		try {
+//			FileInputStream fis = new FileInputStream(newfile);
+//			OutputStream os = item.getOutputStream();
+//
+//			while ((bytesRead = fis.read(buffer, 0, 8192)) != -1) {
+//				os.write(buffer, 0, bytesRead);
+//			}
+//			os.close();
+//			fis.close();
+//		}
+//
+//		catch (IOException e)
+//
+//		{
+//			e.printStackTrace();
+//		}
+//
+//		return item;
+//
+//	}
 
 }
